@@ -96,9 +96,9 @@ const Spaces = () => {
                 <Button
                     //   onClick={() => navigate("/cadastro-espaco")}
                     className="bg-warning hover:bg-orange-600 text-warning-foreground
-transition-all duration-300 ease-in-out 
-hover:scale-105 hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-1
-transform active:scale-95"
+                            transition-all duration-300 ease-in-out 
+                            hover:scale-105 hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-1
+                            transform active:scale-95"
                 >
                     <Plus className="w-4 h-4 mr-2" />
                     Novo Espaço
@@ -125,11 +125,11 @@ transform active:scale-95"
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredSpaces.map((space) => (
                     <Card key={space.id} className="shadow-card hover:shadow-elegant transition-all duration-300 overflow-hidden">
-                        <div className="aspect-video relative">
+                        <div className="h-60 relative ">
                             <img
                                 src={space.imageUrl}
                                 alt={space.nome}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover "
                             />
                             <div className="absolute top-3 left-3">
                                 <Badge className={getTypeColor(space.tipo)}>
