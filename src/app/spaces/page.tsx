@@ -94,7 +94,7 @@ const Spaces = () => {
                 </div>
 
                 <Button
-                    //   onClick={() => navigate("/cadastro-espaco")}
+                      onClick={() => router.push("/spaces/")}
                     className="bg-primary hover:bg-primary-hover"
                 >
                     <Plus className="w-4 h-4 mr-2" />
