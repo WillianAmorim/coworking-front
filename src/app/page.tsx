@@ -86,8 +86,8 @@ const Page = () => {
           <Card
             key={index}
             className="shadow-card hover:shadow-elegant transition-all duration-300
-hover:scale-105 hover:-translate-y-2 hover:shadow-xl
-cursor-pointer group transform active:scale-100"
+              hover:scale-105 hover:-translate-y-2 hover:shadow-xl
+              cursor-pointer group transform active:scale-100"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">

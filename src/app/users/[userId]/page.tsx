@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Edit, Mail, Phone, User, Calendar, MapPin, Briefcase } from "lucide-react";
 import { useRouter } from "next/navigation";
+import api from "@/lib/api";
 
 // Mock data - em produção viria de uma API
 const mockUser = {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,46 +8,47 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UserPlus, Search, Filter, Mail, Phone, User, Grid, List, Eye, Edit } from "lucide-react";
 import { useRouter } from "next/navigation";
+import userService from "@/services/userService";
+import { Users } from "@/types/user";
 
-
-const mockUsers = [
-  {
-    id: 1,
-    nome: "Ana Silva",
-    email: "ana.silva@coworkspace.com",
-    role: "funcionario",
-    celular1: "(11) 99999-9999",
-    cargo: "Gerente",
-    departamento: "Administração",
-  },
-  {
-    id: 2,
-    nome: "João Santos",
-    email: "joao@empresa.com",
-    role: "cliente",
-    celular1: "(11) 88888-8888",
-    plano: "Mensal",
-    tipoPessoa: "PF",
-  },
-  {
-    id: 3,
-    nome: "Maria Oliveira",
-    email: "maria.oliveira@coworkspace.com",
-    role: "funcionario",
-    celular1: "(11) 77777-7777",
-    cargo: "Recepcionista",
-    departamento: "Atendimento",
-  },
-  {
-    id: 4,
-    nome: "Carlos Ferreira",
-    email: "carlos@startup.com",
-    role: "cliente",
-    celular1: "(11) 66666-6666",
-    plano: "Flex",
-    tipoPessoa: "PJ",
-  },
-];
+// const mockUsers = [
+//   {
+//     id: 1,
+//     nome: "Ana Silva",
+//     email: "ana.silva@coworkspace.com",
+//     role: "funcionario",
+//     celular1: "(11) 99999-9999",
+//     cargo: "Gerente",
+//     departamento: "Administração",
+//   },
+//   {
+//     id: 2,
+//     nome: "João Santos",
+//     email: "joao@empresa.com",
+//     role: "cliente",
+//     celular1: "(11) 88888-8888",
+//     plano: "Mensal",
+//     tipoPessoa: "PF",
+//   },
+//   {
+//     id: 3,
+//     nome: "Maria Oliveira",
+//     email: "maria.oliveira@coworkspace.com",
+//     role: "funcionario",
+//     celular1: "(11) 77777-7777",
+//     cargo: "Recepcionista",
+//     departamento: "Atendimento",
+//   },
+//   {
+//     id: 4,
+//     nome: "Carlos Ferreira",
+//     email: "carlos@startup.com",
+//     role: "cliente",
+//     celular1: "(11) 66666-6666",
+//     plano: "Flex",
+//     tipoPessoa: "PJ",
+//   },
+// ];
 
 const Page = () => {
   const router = useRouter();
@@ -56,12 +57,35 @@ const Page = () => {
   const [roleFilter, setRoleFilter] = useState("todos");
   const [viewMode, setViewMode] = useState<"cards" | "list">("cards");
 
-  const filteredUsers = mockUsers.filter((user) => {
-    const matchesSearch = user.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRole = roleFilter === "todos" || user.role === roleFilter;
-    return matchesSearch && matchesRole;
-  });
+  const [users, setUsers] = useState<Users[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<string | null>(null);
+
+  // Função para buscar usuários da API
+const fetchUsers = async () => {
+  try {
+    // setLoading(true);
+    // setError(null);
+    const fetchedUsers = await userService.getUsers();
+    setUsers(fetchedUsers);
+  } catch (err) {
+    // setError('Erro ao carregar usuários. Tente novamente.');
+    console.error('Erro ao buscar usuários:', err);
+  } finally {
+    // setLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchUsers();
+}, []);
+
+  const filteredUsers = users.filter((users) => {
+  const matchesSearch = users.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    users.email.toLowerCase().includes(searchTerm.toLowerCase());
+  const matchesRole = roleFilter === "todos" || users.role === roleFilter;
+  return matchesSearch && matchesRole;
+});
 
   const getRoleBadge = (role: string) => {
     return role === "funcionario" ? (
