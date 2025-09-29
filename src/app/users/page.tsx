@@ -89,9 +89,9 @@ const Page = () => {
           <Button
             onClick={() => router.push("/users/employeeForm")}
             className="bg-secondary hover:bg-secondary-hover text-secondary-foreground 
-transition-all duration-300 ease-in-out 
-hover:scale-105 hover:shadow-lg hover:shadow-purple-200 
-transform active:scale-95"
+                transition-all duration-300 ease-in-out 
+                hover:scale-105 hover:shadow-lg hover:shadow-purple-200 
+                transform active:scale-95"
           >
             <UserPlus className="w-4 h-4 mr-2 bg-purple-500 hover:bg-purple-600" />
             Novo Funcionário
@@ -99,9 +99,9 @@ transform active:scale-95"
           <Button
             onClick={() => router.push("/users/clientForm")}
             className="bg-primary hover:bg-primary-hover text-primary-foreground
-transition-all duration-300 ease-in-out 
-hover:scale-105 hover:shadow-lg hover:shadow-blue-200 
-transform active:scale-95"
+              transition-all duration-300 ease-in-out 
+              hover:scale-105 hover:shadow-lg hover:shadow-blue-200 
+              transform active:scale-95"
           >
             <UserPlus className="w-4 h-4 mr-2 bg-blue-500 hover:bg-blue-600" />
             Novo Cliente
@@ -109,12 +109,12 @@ transform active:scale-95"
         </div>
       </div>
 
-      <Card>
+      <Card className="overflow-visible">
         <CardHeader>
           <CardTitle className="text-lg">Filtros</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="flex flex-col lg:flex-row gap-4">
+        <CardContent className="overflow-visible">
+          <div className="flex flex-col lg:flex-row gap-4 overflow-visible">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -127,13 +127,18 @@ transform active:scale-95"
               </div>
             </div>
             <div className="flex gap-2">
-              <div className="w-full sm:w-48">
-                <Select value={roleFilter} onValueChange={setRoleFilter}>
+              <div className="w-full sm:w-48 relative">
+                  <Select value={roleFilter} onValueChange={setRoleFilter}>
                   <SelectTrigger>
                     <Filter className="w-4 h-4 mr-2" />
                     <SelectValue placeholder="Filtrar por tipo" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent
+                    position="popper" 
+                    side="bottom" 
+                    align="start"
+                    className="w-[250px] max-h-[250px]"
+                  >
                     <SelectItem value="todos">Todos</SelectItem>
                     <SelectItem value="funcionario" bg-secondary>Funcionários</SelectItem>
                     <SelectItem value="cliente" bg-primary>Clientes</SelectItem>
@@ -202,7 +207,7 @@ transform active:scale-95"
                   </div>
                 )}
 
-                <div className="flex gap-2 pt-2">
+                <div className="hidden sm:flex gap-2 flex-shrink-0">
                   <Button
                     variant="outline"
                     size="sm"
@@ -232,25 +237,25 @@ transform active:scale-95"
             <div className="divide-y">
               {filteredUsers.map((user) => (
                 <div key={user.id} className="p-4 hover:bg-muted/50 transition-colors">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                    <div className="min-w-0 flex-1 flex items-center space-x-4">
                       <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
                         <User className="w-5 h-5 text-white" />
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <h3 className="font-semibold">{user.nome}</h3>
+                          <h3 className="font-semibold truncate">{user.nome}</h3>
                           {getRoleBadge(user.role)}
                         </div>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
-                          <span className="flex items-center gap-1">
-                            <Mail className="w-3 h-3" />
-                            {user.email}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Phone className="w-3 h-3" />
-                            {user.celular1}
-                          </span>
+                        <div className="space-y-1 text-sm text-muted-foreground mt-1">
+                          <div className="flex items-center gap-1 min-w-0">
+                            <Mail className="w-3 h-3 flex-shrink-0 text-blue-500" />
+                            <span className="truncate">{user.email}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Phone className="w-3 h-3 flex-shrink-0 text-green-500" />
+                            <span>{user.celular1}</span>
+                          </div>
                         </div>
                         {user.role === "funcionario" ? (
                           <div className="text-xs text-muted-foreground mt-1">
@@ -279,6 +284,16 @@ transform active:scale-95"
                       >
                         <Edit className="w-4 h-4 mr-1" />
                         Editar
+                      </Button>
+                    </div>
+                    {/* Actions - mobile */}
+                    <div className="sm:hidden flex justify-end">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="h-11 w-11" 
+                      >
+                        <span className="text-lg">⋯</span>
                       </Button>
                     </div>
                   </div>
