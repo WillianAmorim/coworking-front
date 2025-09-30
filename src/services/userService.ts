@@ -26,6 +26,25 @@ class UserService {
     }
   }
 
+  async addUserEmployee(data: any): Promise<Users> {
+    try {
+      const response = await api.post<Users>(`/users/employee`, data);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao adicionar usuário:', error);
+      throw new Error('Falha ao carregar usuário');
+    }
+  }
+
+  async addUserClient(data: any): Promise<Users> {
+    try {
+      const response = await api.post<Users>(`/users/client`, data);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao adicionar usuário:', error);
+      throw new Error('Falha ao carregar usuário');
+    }
+  }
 
 
 

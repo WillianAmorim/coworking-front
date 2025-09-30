@@ -28,7 +28,6 @@ const fetchUsers = async () => {
     // setLoading(true);
     // setError(null);
     const fetchedUsers = await userService.getUsers();
-    console.log(fetchedUsers, "fetchedUsers")
     setUsers(fetchedUsers);
   } catch (err) {
     // setError('Erro ao carregar usuários. Tente novamente.');
@@ -73,7 +72,7 @@ useEffect(() => {
 
         <div className="flex flex-col sm:flex-row gap-2">
           <Button
-            onClick={() => router.push("/users/employeeForm")}
+            onClick={() => router.push("/users/register-employee")}
             className="bg-secondary hover:bg-secondary-hover text-secondary-foreground 
                 transition-all duration-300 ease-in-out 
                 hover:scale-105 hover:shadow-lg hover:shadow-purple-200 
@@ -83,7 +82,7 @@ useEffect(() => {
             Novo Funcionário
           </Button>
           <Button
-            onClick={() => router.push("/users/clientForm")}
+            onClick={() => router.push("/users/register-client")}
             className="bg-primary hover:bg-primary-hover text-primary-foreground
               transition-all duration-300 ease-in-out 
               hover:scale-105 hover:shadow-lg hover:shadow-blue-200 

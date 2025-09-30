@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, Save, User } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
+import userService from "@/services/userService";
 
 const EmployeeForm = () => {
     // const navigate = useNavigate();
@@ -17,7 +18,7 @@ const EmployeeForm = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         // Dados pessoais
         nome: "",
         email: "",
@@ -49,7 +50,9 @@ const EmployeeForm = () => {
         // Contato
         celular1: "",
         celular2: "",
-    });
+    };
+
+    const [formData, setFormData] = useState(initialFormData);
 
     const handleInputChange = (field: string, value: string) => {
         setFormData(prev => ({
@@ -63,8 +66,15 @@ const EmployeeForm = () => {
         setIsLoading(true);
 
         try {
-            // Simular chamada da API
-            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            const payload = {
+                ...formData,
+                dataNascimento: new Date(formData.dataNascimento),
+                salario: parseFloat(formData.salario),
+                dataAdmissao: new Date(formData.dataAdmissao)
+            };
+            await userService.addUserEmployee(payload)
+            setFormData(initialFormData);
 
             // toast({
             //     title: "Funcionário cadastrado!",
@@ -165,10 +175,10 @@ const EmployeeForm = () => {
                                     <SelectValue placeholder="Selecione" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="solteiro">Solteiro(a)</SelectItem>
-                                    <SelectItem value="casado">Casado(a)</SelectItem>
-                                    <SelectItem value="divorciado">Divorciado(a)</SelectItem>
-                                    <SelectItem value="viuvo">Viúvo(a)</SelectItem>
+                                    <SelectItem value="SOLTEIRO">Solteiro(a)</SelectItem>
+                                    <SelectItem value="CASADO">Casado(a)</SelectItem>
+                                    <SelectItem value="DIVORCIADO">Divorciado(a)</SelectItem>
+                                    <SelectItem value="VIUVO">Viúvo(a)</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -360,7 +370,7 @@ const EmployeeForm = () => {
                     <Button
                         type="button"
                         variant="outline"
-                        // onClick={() => navigate("/usuarios")}
+                    // onClick={() => navigate("/usuarios")}
                     >
                         Cancelar
                     </Button>

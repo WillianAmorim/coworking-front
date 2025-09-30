@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, Save, User, Building } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
+import userService from "@/services/userService";
 
 const ClientForm = () => {
     // const navigate = useNavigate();
@@ -18,7 +19,7 @@ const ClientForm = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         // Dados pessoais
         nome: "",
         email: "",
@@ -57,7 +58,10 @@ const ClientForm = () => {
         // Contato
         celular1: "",
         celular2: "",
-    });
+    };
+
+    const [formData, setFormData] = useState(initialFormData);
+
 
     const handleInputChange = (field: string, value: string | boolean) => {
         setFormData(prev => ({
@@ -71,8 +75,14 @@ const ClientForm = () => {
         setIsLoading(true);
 
         try {
-            // Simular chamada da API
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            const payload = {
+                ...formData,
+                dataNascimento: new Date(formData.dataNascimento),
+                // salario: parseFloat(formData.salario),
+                // dataAdmissao: new Date(formData.dataAdmissao)
+            };
+            await userService.addUserClient(payload)
+            setFormData(initialFormData);
 
             // toast({
             //     title: "Cliente cadastrado!",
@@ -175,10 +185,10 @@ const ClientForm = () => {
                                     <SelectValue placeholder="Selecione" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="solteiro">Solteiro(a)</SelectItem>
-                                    <SelectItem value="casado">Casado(a)</SelectItem>
-                                    <SelectItem value="divorciado">Divorciado(a)</SelectItem>
-                                    <SelectItem value="viuvo">Viúvo(a)</SelectItem>
+                                    <SelectItem value="SOLTEIRO">Solteiro(a)</SelectItem>
+                                    <SelectItem value="CASADO">Casado(a)</SelectItem>
+                                    <SelectItem value="DIVORCIADO">Divorciado(a)</SelectItem>
+                                    <SelectItem value="VIUVO">Viúvo(a)</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -253,14 +263,6 @@ const ClientForm = () => {
                                     <SelectItem value="Dinheiro">Dinheiro</SelectItem>
                                 </SelectContent>
                             </Select>
-                        </div>
-                        <div className="flex items-center space-x-2 md:col-span-2">
-                            <Checkbox
-                                id="clienteEstrangeiro"
-                                checked={formData.clienteEstrangeiro}
-                                // onCheckedChange={(checked) => handleInputChange("clienteEstrangeiro", !!checked)}
-                            />
-                            <Label htmlFor="clienteEstrangeiro">Cliente estrangeiro</Label>
                         </div>
                     </CardContent>
                 </Card>
@@ -420,7 +422,7 @@ const ClientForm = () => {
                     <Button
                         type="button"
                         variant="outline"
-                        // onClick={() => navigate("/usuarios")}
+                    // onClick={() => navigate("/usuarios")}
                     >
                         Cancelar
                     </Button>
