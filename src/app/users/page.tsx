@@ -11,45 +11,6 @@ import { useRouter } from "next/navigation";
 import userService from "@/services/userService";
 import { Users } from "@/types/user";
 
-// const mockUsers = [
-//   {
-//     id: 1,
-//     nome: "Ana Silva",
-//     email: "ana.silva@coworkspace.com",
-//     role: "funcionario",
-//     celular1: "(11) 99999-9999",
-//     cargo: "Gerente",
-//     departamento: "Administração",
-//   },
-//   {
-//     id: 2,
-//     nome: "João Santos",
-//     email: "joao@empresa.com",
-//     role: "cliente",
-//     celular1: "(11) 88888-8888",
-//     plano: "Mensal",
-//     tipoPessoa: "PF",
-//   },
-//   {
-//     id: 3,
-//     nome: "Maria Oliveira",
-//     email: "maria.oliveira@coworkspace.com",
-//     role: "funcionario",
-//     celular1: "(11) 77777-7777",
-//     cargo: "Recepcionista",
-//     departamento: "Atendimento",
-//   },
-//   {
-//     id: 4,
-//     nome: "Carlos Ferreira",
-//     email: "carlos@startup.com",
-//     role: "cliente",
-//     celular1: "(11) 66666-6666",
-//     plano: "Flex",
-//     tipoPessoa: "PJ",
-//   },
-// ];
-
 const Page = () => {
   const router = useRouter();
 
@@ -67,6 +28,7 @@ const fetchUsers = async () => {
     // setLoading(true);
     // setError(null);
     const fetchedUsers = await userService.getUsers();
+    console.log(fetchedUsers, "fetchedUsers")
     setUsers(fetchedUsers);
   } catch (err) {
     // setError('Erro ao carregar usuários. Tente novamente.');
@@ -88,7 +50,7 @@ useEffect(() => {
 });
 
   const getRoleBadge = (role: string) => {
-    return role === "funcionario" ? (
+    return role === "FUNCIONARIO" ? (
       <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
         Funcionário
       </Badge>
@@ -164,8 +126,8 @@ useEffect(() => {
                     className="w-[250px] max-h-[250px]"
                   >
                     <SelectItem value="todos">Todos</SelectItem>
-                    <SelectItem value="funcionario" bg-secondary>Funcionários</SelectItem>
-                    <SelectItem value="cliente" bg-primary>Clientes</SelectItem>
+                    <SelectItem value="FUNCIONARIO">Funcionários</SelectItem>
+                    <SelectItem value="CLIENTE">Clientes</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -216,18 +178,18 @@ useEffect(() => {
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                   <Phone className="w-4 h-4" />
-                  <span>{user.celular1}</span>
+                  <span>{user.contacts?.[0].celular1}</span>
                 </div>
 
-                {user.role === "funcionario" ? (
+                {user.role === "FUNCIONARIO" ? (
                   <div className="space-y-1">
-                    <p className="text-sm"><strong>Cargo:</strong> {user.cargo}</p>
-                    <p className="text-sm"><strong>Departamento:</strong> {user.departamento}</p>
+                    <p className="text-sm"><strong>Cargo:</strong> {user.employee.cargo}</p>
+                    <p className="text-sm"><strong>Departamento:</strong> {user.employee.departamento}</p>
                   </div>
                 ) : (
                   <div className="space-y-1">
-                    <p className="text-sm"><strong>Plano:</strong> {user.plano}</p>
-                    <p className="text-sm"><strong>Tipo:</strong> {user.tipoPessoa}</p>
+                    <p className="text-sm"><strong>Plano:</strong> {user.client.plano}</p>
+                    <p className="text-sm"><strong>Tipo:</strong> {user.client.tipoPessoa}</p>
                   </div>
                 )}
 
@@ -235,7 +197,7 @@ useEffect(() => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => router.push(`/users/userDetails${user.id}`)}
+                    onClick={() => router.push(`/users/view-user/${user.id}`)}
                     className="flex-1"
                   >
                     <Eye className="w-4 h-4 mr-1" />
@@ -244,7 +206,7 @@ useEffect(() => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => router.push(`/users/${user.id}/edit`)}
+                    onClick={() => router.push(`/users/edit-user/${user.id}`)}
                     className="flex-1"
                   >
                     <Edit className="w-4 h-4 mr-1" />
@@ -278,7 +240,7 @@ useEffect(() => {
                           </div>
                           <div className="flex items-center gap-1">
                             <Phone className="w-3 h-3 flex-shrink-0 text-green-500" />
-                            <span>{user.celular1}</span>
+                            <span>{user.contacts?.[0].celular1}</span>
                           </div>
                         </div>
                         {user.role === "funcionario" ? (

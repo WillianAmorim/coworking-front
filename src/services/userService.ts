@@ -3,7 +3,7 @@ import { Users } from '@/types/user';
 
 
 class UserService {
-  
+
   // listar todos os usuários
   async getUsers(): Promise<Users[]> {
     try {
@@ -15,7 +15,7 @@ class UserService {
     }
   }
 
-  
+
   async getUserById(id: number): Promise<Users> {
     try {
       const response = await api.get<Users>(`/users/${id}`);
@@ -26,10 +26,10 @@ class UserService {
     }
   }
 
-  
 
-  
-  
+
+
+
 }
 
 // Exportar uma instância única do serviço
