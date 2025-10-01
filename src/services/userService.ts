@@ -46,6 +46,16 @@ class UserService {
     }
   }
 
+  async updateUser(id: number, formData: any): Promise<Users> {
+    try {
+      const response = await api.put<Users>(`/users/${id.toString()}`, formData);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao adicionar usuário:', error);
+      throw new Error('Falha ao carregar usuário');
+    }
+  }
+
 
 
 

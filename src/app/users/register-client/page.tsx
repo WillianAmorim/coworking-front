@@ -12,6 +12,7 @@ import { ArrowLeft, Save, User, Building } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
 import userService from "@/services/userService";
+import { Users } from "@/types/user";
 
 const ClientForm = () => {
     // const navigate = useNavigate();
@@ -21,46 +22,50 @@ const ClientForm = () => {
 
     const initialFormData = {
         // Dados pessoais
-        nome: "",
-        email: "",
-        senha: "",
-        rg: "",
-        orgaoExpedidor: "",
-        estadoCivil: "",
-        profissao: "",
-        dataNascimento: "",
+        user: {
+            nome: "",
+            email: "",
+            senha: "",
+            rg: "",
+            role: "",
+            orgaoExpedidor: "",
+            estadoCivil: "",
+            profissao: "",
+            dataNascimento: "",
+            celular1: "",
+            celular2: "",
 
+        },
         // Dados do cliente
-        plano: "",
-        clienteEstrangeiro: false,
-        meioFaturamentoPadrao: "",
-        parceiroOrigemId: "",
-        tipoPessoa: "",
-        documento: "",
-        razaoSocial: "",
-        nomeFantasia: "",
-        pronuncia: "",
-        inscricaoMunicipal: "",
-        inscricaoEstadual: "",
-        ramoAtividade: "",
-        dataFundacao: "",
-        logoUrl: "",
+        client: {
+            dataFundacao: "",
+            documento: "",
+            inscricaoEstadual: "",
+            inscricaoMunicipal: "",
+            logoUrl: "",
+            meioFaturamentoPadrao: "",
+            nomeFantasia: "",
+            parceiroOrigemId: "",
+            plano: "",
+            pronuncia: "",
+            ramoAtividade: "",
+            razaoSocial: "",
+            tipoPessoa: "",
+        },
 
         // Endereço
-        cep: "",
-        estado: "",
-        cidade: "",
-        logradouro: "",
-        numero: "",
-        bairro: "",
-        complemento: "",
-
-        // Contato
-        celular1: "",
-        celular2: "",
+        addresses: {
+            cep: "",
+            estado: "",
+            cidade: "",
+            logradouro: "",
+            numero: "",
+            bairro: "",
+            complemento: "",
+        }
     };
 
-    const [formData, setFormData] = useState(initialFormData);
+    const [formData, setFormData] = useState<Users>(initialFormData);
 
 
     const handleInputChange = (field: string, value: string | boolean) => {
@@ -135,7 +140,7 @@ const ClientForm = () => {
                             <Label htmlFor="nome">Nome Completo *</Label>
                             <Input
                                 id="nome"
-                                value={formData.nome}
+                                value={formData.user.nome}
                                 onChange={(e) => handleInputChange("nome", e.target.value)}
                                 required
                             />

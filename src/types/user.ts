@@ -14,13 +14,7 @@ export enum EstadoCivil {
   VIUVO = 'VIUVO'
 }
 
-interface Contacts {
-  celular1?: string,
-  celular2?: string
-}
-
 interface Client {
-  clienteEstrangeiro: boolean,
   dataFundacao: string,
   documento: string,
   inscricaoEstadual: string
@@ -39,16 +33,24 @@ interface Client {
 interface Employee {
   cargaHoraria: string,
   cargo: string,
-  dataAdminissao: string,
+  dataAdmissao: string,
   departamento: string,
   matriculaInterna: string,
-  salario: number,
+  salario: string,
   tipoContrato: string
 }
 
+interface Addresses {
+  cep: string,
+  estado: string,
+  cidade: string,
+  logradouro: string,
+  numero: string,
+  bairro: string,
+  complemento: string
+}
 
-export interface Users {
-  id: number;
+interface User {
   nome: string;
   email: string;
   senha: string;
@@ -58,17 +60,18 @@ export interface Users {
   estadoCivil: EstadoCivil | string;
   profissao: string;
   dataNascimento: string;
-  criadoEm: string;
-  atualizadoEm: string;
+  criadoEm?: string;
+  atualizadoEm?: string;
+  celular1: string,
+  celular2?: string,
+}
 
-  contacts: Contacts[]
-  client: Client
-  employee: Employee
 
-  cargo?: string;
-  departamento?: string;
-  plano?: string;
-  tipoPessoa?: string;
+export interface Users {
+  user: User;
+  client?: Client
+  employee?: Employee
+  addresses: Addresses
 }
 
 

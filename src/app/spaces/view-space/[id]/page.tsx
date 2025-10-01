@@ -1,8 +1,11 @@
+'use client'
+
 // import { useParams, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Edit, MapPin, Users, DollarSign, Building2, Clock, Star } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // Mock data - em produção viria de uma API
 const mockSpace = {
@@ -25,7 +28,7 @@ const mockSpace = {
 
 const SpaceDetails = () => {
 //   const { id } = useParams();
-//   const navigate = useNavigate();
+  const router = useRouter();
 
   const getTypeColor = (tipo: string) => {
     const colors: { [key: string]: string } = {
@@ -43,7 +46,7 @@ const SpaceDetails = () => {
         <Button
           variant="outline"
           size="sm"
-        //   onClick={() => navigate("/espacos")}
+          onClick={() => router.push("/spaces")}
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Voltar

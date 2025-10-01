@@ -94,7 +94,7 @@ const Spaces = () => {
                 </div>
 
                 <Button
-                    //   onClick={() => navigate("/cadastro-espaco")}
+                    //   onClick={() => router.push("/spaces/view-space")}
                     className="bg-warning hover:bg-orange-600 text-warning-foreground
                             transition-all duration-300 ease-in-out 
                             hover:scale-105 hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-1
@@ -197,7 +197,7 @@ const Spaces = () => {
                                     <Button
                                         variant="outline"
                                         size="sm"
-                                        onClick={() => router.push(`/spaces/${space.id}`)}
+                                        onClick={() => router.push(`/spaces/view-space/${space.id}`)}
                                     >
                                         Ver Detalhes
                                     </Button>
