@@ -177,18 +177,18 @@ useEffect(() => {
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                   <Phone className="w-4 h-4" />
-                  <span>{user.contacts?.[0].celular1}</span>
+                  <span>{user.celular1}</span>
                 </div>
 
                 {user.role === "FUNCIONARIO" ? (
                   <div className="space-y-1">
-                    <p className="text-sm"><strong>Cargo:</strong> {user.employee.cargo}</p>
-                    <p className="text-sm"><strong>Departamento:</strong> {user.employee.departamento}</p>
+                    <p className="text-sm"><strong>Cargo:</strong> {user.employee?.cargo}</p>
+                    <p className="text-sm"><strong>Departamento:</strong> {user.employee?.departamento}</p>
                   </div>
                 ) : (
                   <div className="space-y-1">
-                    <p className="text-sm"><strong>Plano:</strong> {user.client.plano}</p>
-                    <p className="text-sm"><strong>Tipo:</strong> {user.client.tipoPessoa}</p>
+                    <p className="text-sm"><strong>Plano:</strong> {user.client?.plano}</p>
+                    <p className="text-sm"><strong>Tipo:</strong> {user.client?.tipoPessoa}</p>
                   </div>
                 )}
 
@@ -239,16 +239,16 @@ useEffect(() => {
                           </div>
                           <div className="flex items-center gap-1">
                             <Phone className="w-3 h-3 flex-shrink-0 text-green-500" />
-                            <span>{user.contacts?.[0].celular1}</span>
+                            <span>{user.celular1}</span>
                           </div>
                         </div>
                         {user.role === "funcionario" ? (
                           <div className="text-xs text-muted-foreground mt-1">
-                            {user.cargo} • {user.departamento}
+                            {user.employee?.cargo} • {user.employee?.departamento}
                           </div>
                         ) : (
                           <div className="text-xs text-muted-foreground mt-1">
-                            {user.plano} • {user.tipoPessoa}
+                            {user.client?.plano} • {user.client?.tipoPessoa}
                           </div>
                         )}
                       </div>

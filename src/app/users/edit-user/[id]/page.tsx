@@ -64,13 +64,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
         },
 
         addresses: {
-            cep: user?.addresses?.[0].cep,
-            estado: user?.addresses?.[0].estado,
-            cidade: user?.addresses?.[0].cidade,
-            logradouro: user?.addresses?.[0].logradouro,
-            numero: user?.addresses?.[0].numero,
-            bairro: user?.addresses?.[0].bairro,
-            complemento: user?.addresses?.[0].complemento
+            cep: user?.addresses?.cep,
+            estado: user?.addresses?.estado,
+            cidade: user?.addresses?.cidade,
+            logradouro: user?.addresses?.logradouro,
+            numero: user?.addresses?.numero,
+            bairro: user?.addresses?.bairro,
+            complemento: user?.addresses?.complemento
         }
     });
 
@@ -127,13 +127,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                 },
 
                 addresses: {
-                    cep: user.addresses?.[0]?.cep || "",
-                    estado: user.addresses?.[0]?.estado || "",
-                    cidade: user.addresses?.[0]?.cidade || "",
-                    logradouro: user.addresses?.[0]?.logradouro || "",
-                    numero: user.addresses?.[0]?.numero || "",
-                    bairro: user.addresses?.[0]?.bairro || "",
-                    complemento: user.addresses?.[0]?.complemento || "",
+                    cep: user.addresses?.cep || "",
+                    estado: user.addresses?.estado || "",
+                    cidade: user.addresses?.cidade || "",
+                    logradouro: user.addresses?.logradouro || "",
+                    numero: user.addresses?.numero || "",
+                    bairro: user.addresses?.bairro || "",
+                    complemento: user.addresses?.complemento || "",
                 }
             });
         }
@@ -311,7 +311,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Label htmlFor="cargo">Cargo*</Label>
                                     <Input
                                         id="cargo"
-                                        value={formData.cargo}
+                                        value={formData.employee.cargo}
                                         onChange={(e) => handleChange("cargo", e.target.value)}
                                         required
                                     />
@@ -321,7 +321,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Label htmlFor="departamento">Departamento*</Label>
                                     <Input
                                         id="departamento"
-                                        value={formData.departamento}
+                                        value={formData.employee.departamento}
                                         onChange={(e) => handleChange("departamento", e.target.value)}
                                         required
                                     />
@@ -333,7 +333,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                         id="salario"
                                         type="number"
                                         step="0.01"
-                                        value={formData.salario}
+                                        value={formData.employee.salario}
                                         onChange={(e) => handleChange("salario", e.target.value)}
                                         required
                                     />
@@ -344,7 +344,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Input
                                         id="dataAdmissao"
                                         type="date"
-                                        value={formData.dataAdmissao}
+                                        value={formData.employee.dataAdmissao}
                                         onChange={(e) => handleChange("dataAdmissao", e.target.value)}
                                         required
                                     />
@@ -352,7 +352,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
 
                                 <div className="space-y-2">
                                     <Label htmlFor="tipoContrato">Tipo de Contrato*</Label>
-                                    <Select value={formData.tipoContrato} onValueChange={(value) => handleChange("tipoContrato", value)}>
+                                    <Select value={formData.employee.tipoContrato} onValueChange={(value) => handleChange("tipoContrato", value)}>
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
@@ -369,7 +369,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Label htmlFor="cargaHoraria">Carga Horária*</Label>
                                     <Input
                                         id="cargaHoraria"
-                                        value={formData.cargaHoraria}
+                                        value={formData.employee.cargaHoraria}
                                         onChange={(e) => handleChange("cargaHoraria", e.target.value)}
                                         required
                                     />
@@ -379,7 +379,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Label htmlFor="matriculaInterna">Matrícula Interna*</Label>
                                     <Input
                                         id="matriculaInterna"
-                                        value={formData.matriculaInterna}
+                                        value={formData.employee.matriculaInterna}
                                         onChange={(e) => handleChange("matriculaInterna", e.target.value)}
                                         required
                                     />
@@ -390,7 +390,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                 )}
 
                 {/* Informações de Cliente - apenas para clientes */}
-                {formData.role === "CLIENTE" && (
+                {formData.user.role === "CLIENTE" && (
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
@@ -402,7 +402,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="plano">Plano*</Label>
-                                    <Select value={formData.plano} onValueChange={(value) => handleChange("plano", value)}>
+                                    <Select value={formData.client.plano} onValueChange={(value) => handleChange("plano", value)}>
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
@@ -416,7 +416,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
 
                                 <div className="space-y-2">
                                     <Label htmlFor="tipoPessoa">Tipo de Pessoa*</Label>
-                                    <Select value={formData.tipoPessoa} onValueChange={(value) => handleChange("tipoPessoa", value)}>
+                                    <Select value={formData.client.tipoPessoa} onValueChange={(value) => handleChange("tipoPessoa", value)}>
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
@@ -431,7 +431,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Label htmlFor="documento">CPF/CNPJ*</Label>
                                     <Input
                                         id="documento"
-                                        value={formData.documento}
+                                        value={formData.client.documento}
                                         onChange={(e) => handleChange("documento", e.target.value)}
                                         required
                                     />
@@ -452,7 +452,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
 
                                 <div className="space-y-2">
                                     <Label htmlFor="meioFaturamentoPadrao">Meio de Faturamento*</Label>
-                                    <Select value={formData.meioFaturamentoPadrao} onValueChange={(value) => handleChange("meioFaturamentoPadrao", value)}>
+                                    <Select value={formData.client.meioFaturamentoPadrao} onValueChange={(value) => handleChange("meioFaturamentoPadrao", value)}>
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
@@ -469,18 +469,18 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Label htmlFor="parceiroOrigemId">Parceiro Origem</Label>
                                     <Input
                                         id="parceiroOrigemId"
-                                        value={formData.parceiroOrigemId}
+                                        value={formData.client.parceiroOrigemId}
                                         onChange={(e) => handleChange("parceiroOrigemId", e.target.value)}
                                     />
                                 </div>
 
-                                {formData.tipoPessoa === "Jurídica" && (
+                                {formData.client.tipoPessoa === "Jurídica" && (
                                     <>
                                         <div className="space-y-2">
                                             <Label htmlFor="razaoSocial">Razão Social*</Label>
                                             <Input
                                                 id="razaoSocial"
-                                                value={formData.razaoSocial}
+                                                value={formData.client.razaoSocial}
                                                 onChange={(e) => handleChange("razaoSocial", e.target.value)}
                                                 required
                                             />
@@ -490,7 +490,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Label htmlFor="nomeFantasia">Nome Fantasia</Label>
                                             <Input
                                                 id="nomeFantasia"
-                                                value={formData.nomeFantasia}
+                                                value={formData.client.nomeFantasia}
                                                 onChange={(e) => handleChange("nomeFantasia", e.target.value)}
                                             />
                                         </div>
@@ -499,7 +499,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Label htmlFor="inscricaoMunicipal">Inscrição Municipal</Label>
                                             <Input
                                                 id="inscricaoMunicipal"
-                                                value={formData.inscricaoMunicipal}
+                                                value={formData.client.inscricaoMunicipal}
                                                 onChange={(e) => handleChange("inscricaoMunicipal", e.target.value)}
                                             />
                                         </div>
@@ -508,7 +508,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Label htmlFor="inscricaoEstadual">Inscrição Estadual</Label>
                                             <Input
                                                 id="inscricaoEstadual"
-                                                value={formData.inscricaoEstadual}
+                                                value={formData.client.inscricaoEstadual}
                                                 onChange={(e) => handleChange("inscricaoEstadual", e.target.value)}
                                             />
                                         </div>
@@ -517,7 +517,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Label htmlFor="ramoAtividade">Ramo de Atividade</Label>
                                             <Input
                                                 id="ramoAtividade"
-                                                value={formData.ramoAtividade}
+                                                value={formData.client.ramoAtividade}
                                                 onChange={(e) => handleChange("ramoAtividade", e.target.value)}
                                             />
                                         </div>
@@ -527,7 +527,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Input
                                                 id="dataFundacao"
                                                 type="date"
-                                                value={formData.dataFundacao}
+                                                value={formData.client.dataFundacao}
                                                 onChange={(e) => handleChange("dataFundacao", e.target.value)}
                                             />
                                         </div>
@@ -538,7 +538,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Label htmlFor="pronuncia">Pronúncia</Label>
                                     <Input
                                         id="pronuncia"
-                                        value={formData.pronuncia}
+                                        value={formData.client.pronuncia}
                                         onChange={(e) => handleChange("pronuncia", e.target.value)}
                                     />
                                 </div>
@@ -558,7 +558,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="cep">CEP*</Label>
                                 <Input
                                     id="cep"
-                                    value={formData.cep}
+                                    value={formData.addresses.cep}
                                     onChange={(e) => handleChange("cep", e.target.value)}
                                     required
                                 />
@@ -568,7 +568,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="estado">Estado*</Label>
                                 <Input
                                     id="estado"
-                                    value={formData.estado}
+                                    value={formData.addresses.estado}
                                     onChange={(e) => handleChange("estado", e.target.value)}
                                     required
                                 />
@@ -578,7 +578,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="cidade">Cidade*</Label>
                                 <Input
                                     id="cidade"
-                                    value={formData.cidade}
+                                    value={formData.addresses.cidade}
                                     onChange={(e) => handleChange("cidade", e.target.value)}
                                     required
                                 />
@@ -588,7 +588,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="logradouro">Logradouro*</Label>
                                 <Input
                                     id="logradouro"
-                                    value={formData.logradouro}
+                                    value={formData.addresses.logradouro}
                                     onChange={(e) => handleChange("logradouro", e.target.value)}
                                     required
                                 />
@@ -598,7 +598,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="numero">Número*</Label>
                                 <Input
                                     id="numero"
-                                    value={formData.numero}
+                                    value={formData.addresses.numero}
                                     onChange={(e) => handleChange("numero", e.target.value)}
                                     required
                                 />
@@ -608,7 +608,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="bairro">Bairro*</Label>
                                 <Input
                                     id="bairro"
-                                    value={formData.bairro}
+                                    value={formData.addresses.bairro}
                                     onChange={(e) => handleChange("bairro", e.target.value)}
                                     required
                                 />
@@ -618,7 +618,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="complemento">Complemento</Label>
                                 <Input
                                     id="complemento"
-                                    value={formData.complemento}
+                                    value={formData.addresses.complemento}
                                     onChange={(e) => handleChange("complemento", e.target.value)}
                                 />
                             </div>

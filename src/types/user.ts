@@ -50,7 +50,13 @@ interface Addresses {
   complemento: string
 }
 
-interface User {
+// interface User {
+  
+// }
+
+
+export interface Users {
+  id?: string;
   nome: string;
   email: string;
   senha: string;
@@ -64,26 +70,11 @@ interface User {
   atualizadoEm?: string;
   celular1: string,
   celular2?: string,
-}
 
-
-export interface Users {
-  user: User;
   client?: Client
   employee?: Employee
   addresses: Addresses
 }
 
 
-export interface CreateUser {
-  nome: string;
-  email: string;
-  senha: string;
-  role?: UserRole | string;
-  rg: string;
-  orgaoExpedidor: string;
-  estadoCivil: EstadoCivil | string;
-  profissao: string;
-  dataNascimento: string;
-}
 
