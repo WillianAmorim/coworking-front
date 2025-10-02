@@ -120,7 +120,7 @@ const UserDetails = ({ params }: { params: Promise<ParamsType> }) => {
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <Phone className="w-3 h-3" />
-                                            {user?.celular1 ?? 'Sem informação'}
+                                            {user?.celular2 ?? 'Sem informação'}
                                         </div>
                                     </div>
                                 </div>

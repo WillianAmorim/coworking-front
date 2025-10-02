@@ -232,7 +232,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     id="email"
                                     type="email"
                                     value={formData.email}
-                                    onChange={(e) => handleChange("email", e.target.value)}
+                                    // onChange={(e) => handleChange("email", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            email: e.target.value
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -242,7 +248,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="rg"
                                     value={formData.rg}
-                                    onChange={(e) => handleChange("rg", e.target.value)}
+                                    // onChange={(e) => handleChange("rg", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            rg: e.target.value
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -252,14 +264,28 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="orgaoExpedidor"
                                     value={formData.orgaoExpedidor}
-                                    onChange={(e) => handleChange("orgaoExpedidor", e.target.value)}
+                                    // onChange={(e) => handleChange("orgaoExpedidor", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            orgaoExpedidor: e.target.value
+                                        })
+                                    }
                                     required
                                 />
                             </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="estadoCivil">Estado Civil*</Label>
-                                <Select value={formData.estadoCivil} onValueChange={(value) => handleChange("estadoCivil", value)}>
+                                <Select value={formData.estadoCivil}
+                                    // onValueChange={(value) => handleChange("estadoCivil", value)}
+                                    onValueChange={(value) =>
+                                        setFormData({
+                                            ...formData,
+                                            estadoCivil: value
+                                        })
+                                    }
+                                >
                                     <SelectTrigger>
                                         <SelectValue />
                                     </SelectTrigger>
@@ -277,7 +303,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="profissao"
                                     value={formData.profissao}
-                                    onChange={(e) => handleChange("profissao", e.target.value)}
+                                    // onChange={(e) => handleChange("profissao", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            profissao: e.target.value
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -288,7 +320,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     id="dataNascimento"
                                     type="date"
                                     value={formData.dataNascimento ? new Date(formData.dataNascimento).toISOString().split("T")[0] : ""}
-                                    onChange={(e) => handleChange("dataNascimento", e.target.value)}
+                                    // onChange={(e) => handleChange("dataNascimento", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            dataNascimento: e.target.value
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -298,7 +336,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="celular1"
                                     value={formData.celular1}
-                                    onChange={(e) => handleChange("celular1", e.target.value)}
+                                    // onChange={(e) => handleChange("celular1", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            celular1: e.target.value
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -308,7 +352,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="celular2"
                                     value={formData.celular2}
-                                    onChange={(e) => handleChange("celular2", e.target.value)}
+                                    // onChange={(e) => handleChange("celular2", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            celular2: e.target.value
+                                        })
+                                    }
                                 />
                             </div>
                         </div>
