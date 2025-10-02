@@ -25,16 +25,16 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
     const [user, setUser] = useState<Users>()
 
     const [formData, setFormData] = useState({
-            nome: user?.nome,
-            email: user?.email,
-            role: user?.role,
-            rg: user?.rg,
-            orgaoExpedidor: user?.orgaoExpedidor,
-            estadoCivil: user?.estadoCivil,
-            profissao: user?.profissao,
-            dataNascimento: user?.dataNascimento,
-            celular1: user?.celular1,
-            celular2: user?.celular2,
+        nome: user?.nome,
+        email: user?.email,
+        role: user?.role,
+        rg: user?.rg,
+        orgaoExpedidor: user?.orgaoExpedidor,
+        estadoCivil: user?.estadoCivil,
+        profissao: user?.profissao,
+        dataNascimento: user?.dataNascimento,
+        celular1: user?.celular1,
+        celular2: user?.celular2,
 
         employee: {
             cargo: user?.employee?.cargo,
@@ -86,16 +86,16 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
     useEffect(() => {
         if (user) {
             setFormData({
-                    nome: user.nome || "",
-                    email: user.email || "",
-                    role: user.role || "",
-                    rg: user.rg || "",
-                    orgaoExpedidor: user.orgaoExpedidor || "",
-                    estadoCivil: user.estadoCivil || "",
-                    profissao: user.profissao || "",
-                    dataNascimento: user.dataNascimento || "",
-                    celular1: user?.celular1 || "",
-                    celular2: user?.celular2 || "",
+                nome: user.nome || "",
+                email: user.email || "",
+                role: user.role || "",
+                rg: user.rg || "",
+                orgaoExpedidor: user.orgaoExpedidor || "",
+                estadoCivil: user.estadoCivil || "",
+                profissao: user.profissao || "",
+                dataNascimento: user.dataNascimento || "",
+                celular1: user?.celular1 || "",
+                celular2: user?.celular2 || "",
 
                 employee: {
                     cargo: user.employee?.cargo || "",
@@ -212,11 +212,11 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     value={formData.nome}
                                     // onChange={(e) => handleChange("nome", e.target.value)}
                                     onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        nome: e.target.value
-                                    })
-                                }
+                                        setFormData({
+                                            ...formData,
+                                            nome: e.target.value
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -358,7 +358,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Input
                                         id="dataAdmissao"
                                         type="date"
-                                        value={formData.employee.dataAdmissao}
+                                        value={formData.employee?.dataAdmissao?.split("T")[0] || ""}
                                         onChange={(e) => handleChange("dataAdmissao", e.target.value)}
                                         required
                                     />
