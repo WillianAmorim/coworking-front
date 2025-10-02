@@ -56,6 +56,15 @@ class UserService {
     }
   }
 
+  async deleteUser(id: number): Promise<void> {
+    try {
+      await api.delete(`/users/${id}`);
+    } catch (error) {
+      console.error('Erro ao deletar usuário:', error);
+      throw new Error('Falha ao deletar usuário');
+    }
+  }
+
 
 
 

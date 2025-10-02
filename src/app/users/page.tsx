@@ -1,15 +1,16 @@
 "use client"
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { UserPlus, Search, Filter, Mail, Phone, User, Grid, List, Eye, Edit } from "lucide-react";
+import { UserPlus, Search, Filter, Mail, Phone, User, Grid, List, Eye, Edit, Trash, Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import userService from "@/services/userService";
 import { Users } from "@/types/user";
+import { toast } from "sonner"
 
 const Page = () => {
   const router = useRouter();
@@ -23,30 +24,30 @@ const Page = () => {
   // const [error, setError] = useState<string | null>(null);
 
   // Função para buscar usuários da API
-const fetchUsers = async () => {
-  try {
-    // setLoading(true);
-    // setError(null);
-    const fetchedUsers = await userService.getUsers();
-    setUsers(fetchedUsers);
-  } catch (err) {
-    // setError('Erro ao carregar usuários. Tente novamente.');
-    console.error('Erro ao buscar usuários:', err);
-  } finally {
-    // setLoading(false);
-  }
-};
+  const fetchUsers = async () => {
+    try {
+      // setLoading(true);
+      // setError(null);
+      const fetchedUsers = await userService.getUsers();
+      setUsers(fetchedUsers);
+    } catch (err) {
+      // setError('Erro ao carregar usuários. Tente novamente.');
+      console.error('Erro ao buscar usuários:', err);
+    } finally {
+      // setLoading(false);
+    }
+  };
 
-useEffect(() => {
-  fetchUsers();
-}, []);
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const filteredUsers = users.filter((users) => {
-  const matchesSearch = users.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    users.email.toLowerCase().includes(searchTerm.toLowerCase());
-  const matchesRole = roleFilter === "todos" || users.role === roleFilter;
-  return matchesSearch && matchesRole;
-});
+    const matchesSearch = users.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      users.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRole = roleFilter === "todos" || users.role === roleFilter;
+    return matchesSearch && matchesRole;
+  });
 
   const getRoleBadge = (role: string) => {
     return role === "FUNCIONARIO" ? (
@@ -59,6 +60,25 @@ useEffect(() => {
       </Badge>
     );
   };
+
+  const deleteUser = async (userId?: string) => {
+    if (userId) {
+      try {
+        await userService.deleteUser(parseInt(userId));
+        toast.success("Usuário deletado com sucesso!", {
+          icon: <Check className="w-5 h-5 text-white" />,
+        })
+        await fetchUsers();
+
+
+      } catch (error) {
+        toast.error("Erro ao deletar usuário!", {
+          icon: <X className="w-5 h-5 text-white" />,
+        })
+        console.error('Erro ao deletar usuário:', error);
+      }
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -113,14 +133,14 @@ useEffect(() => {
             </div>
             <div className="flex gap-2">
               <div className="w-full sm:w-48 relative">
-                  <Select value={roleFilter} onValueChange={setRoleFilter}>
+                <Select value={roleFilter} onValueChange={setRoleFilter}>
                   <SelectTrigger>
                     <Filter className="w-4 h-4 mr-2" />
                     <SelectValue placeholder="Filtrar por tipo" />
                   </SelectTrigger>
                   <SelectContent
-                    position="popper" 
-                    side="bottom" 
+                    position="popper"
+                    side="bottom"
                     align="start"
                     className="w-[250px] max-h-[250px]"
                   >
@@ -158,7 +178,7 @@ useEffect(() => {
           {filteredUsers.map((user) => (
             <Card key={user.id} className="shadow-card hover:shadow-elegant transition-all duration-300">
               <CardHeader>
-                <div className="flex items-start justify-between bg-red-600">
+                <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3 ">
                     <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
                       <User className="w-6 h-6 text-white" />
@@ -167,6 +187,9 @@ useEffect(() => {
                       <h3 className="font-semibold text-lg">{user.nome}</h3>
                       {getRoleBadge(user.role)}
                     </div>
+                  </div>
+                  <div onClick={() => deleteUser(user.id)}>
+                    <Trash className="w-10 h-10 cursor-pointer text-gray-400" />
                   </div>
                 </div>
               </CardHeader>
@@ -257,7 +280,7 @@ useEffect(() => {
                       <Button
                         variant="outline"
                         size="sm"
-                        // onClick={() => navigate(`/usuario/${user.id}`)}
+                      // onClick={() => navigate(`/usuario/${user.id}`)}
                       >
                         <Eye className="w-4 h-4 mr-1" />
                         Ver
@@ -265,7 +288,7 @@ useEffect(() => {
                       <Button
                         variant="outline"
                         size="sm"
-                        // onClick={() => navigate(`/usuario/${user.id}/editar`)}
+                      // onClick={() => navigate(`/usuario/${user.id}/editar`)}
                       >
                         <Edit className="w-4 h-4 mr-1" />
                         Editar
@@ -273,10 +296,10 @@ useEffect(() => {
                     </div>
                     {/* Actions - mobile */}
                     <div className="sm:hidden flex justify-end">
-                      <Button 
-                        variant="ghost" 
+                      <Button
+                        variant="ghost"
                         size="sm"
-                        className="h-11 w-11" 
+                        className="h-11 w-11"
                       >
                         <span className="text-lg">⋯</span>
                       </Button>

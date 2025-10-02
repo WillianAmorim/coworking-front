@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Save, User, Building } from "lucide-react";
+import { ArrowLeft, Save, User, Building, Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import userService from "@/services/userService";
 import { Users } from "@/types/user";
+import { toast } from "sonner";
 
 const ClientForm = () => {
     const router = useRouter();
@@ -115,20 +116,14 @@ const ClientForm = () => {
                 dataNascimento: new Date(formData.dataNascimento),
             };
             await userService.addUserClient(payload)
+            toast.success("Usuário deletado com sucesso!", {
+                icon: <Check className="w-5 h-5 text-white" />,
+            })
             setFormData(initialFormData);
-
-            // toast({
-            //     title: "Cliente cadastrado!",
-            //     description: "O cliente foi cadastrado com sucesso.",
-            // });
-
-            // navigate("/usuarios");
         } catch (error) {
-            // toast({
-            //     title: "Erro ao cadastrar",
-            //     description: "Ocorreu um erro ao cadastrar o cliente.",
-            //     variant: "destructive",
-            // });
+            toast.error("Erro ao deletar usuário!", {
+                icon: <X className="w-5 h-5 text-white" />,
+            })
         } finally {
             setIsLoading(false);
         }
