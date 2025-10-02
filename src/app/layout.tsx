@@ -32,7 +32,7 @@ export default function RootLayout({
 
         {/* Conteúdo da página */}
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-xl py-6 overflow-visible">{children}</main>
-      <Toaster />
+      <Toaster richColors/>
       </body>
     </html>
   );

@@ -109,21 +109,25 @@ const ClientForm = () => {
         setIsLoading(true);
 
         try {
-
-            console.log(formData, 'formData')
             const payload = {
                 ...formData,
                 dataNascimento: new Date(formData.dataNascimento),
             };
             await userService.addUserClient(payload)
-            toast.success("Usuário deletado com sucesso!", {
-                icon: <Check className="w-5 h-5 text-white" />,
-            })
+            toast.custom((t) => (
+                <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+                    <Check className="w-5 h-5 text-green-500" />
+                    <span>Cliente cadastrado com sucesso!</span>
+                </div>
+            ))
             setFormData(initialFormData);
         } catch (error) {
-            toast.error("Erro ao deletar usuário!", {
-                icon: <X className="w-5 h-5 text-white" />,
-            })
+            toast.custom((t) => (
+                <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+                    <X className="w-5 h-5 text-red-500" />
+                    <span>Erro ao cadastrar cliente</span>
+                </div>
+            ))
         } finally {
             setIsLoading(false);
         }

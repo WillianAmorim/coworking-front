@@ -7,11 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Briefcase, Building2, Save, User } from "lucide-react";
+import { ArrowLeft, Briefcase, Building2, Check, Save, User, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 import userService from "@/services/userService";
 import { Users } from "@/types/user";
+import { toast } from "sonner";
 // import { useToast } from "@/hooks/use-toast";
 
 interface ParamsType {
@@ -157,27 +158,21 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
 
             await userService.updateUser(id, payload)
 
-            // toast de sucesso
-            // toast({
-            //     title: "Usuário atualizado!",
-            //     description: "As informações foram salvas com sucesso.",
-            // });
-
-            // navegar para detalhes do usuário
-            // navigate(`/usuario/${id}`);
+            toast.custom((t) => (
+                <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+                    <Check className="w-5 h-5 text-green-500" />
+                    <span>Usuário editado com sucesso!</span>
+                </div>
+            ))
+            router.back()
         } catch (error: any) {
-            console.error("Erro ao atualizar:", error);
-
-            // toast({
-            //     title: "Erro",
-            //     description: "Não foi possível atualizar o usuário.",
-            //     variant: "destructive",
-            // });
+            toast.custom((t) => (
+                <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+                    <X className="w-5 h-5 text-red-500" />
+                    <span>Erro ao editar usuário</span>
+                </div>
+            ))
         }
-    };
-
-    const handleChange = (field: string, value: string) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
     };
 
     return (

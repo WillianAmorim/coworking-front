@@ -7,11 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 // import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Save, User } from "lucide-react";
+import { ArrowLeft, Check, Save, User, X } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
 import userService from "@/services/userService";
 import { parse } from "path";
+import { toast } from "sonner";
 
 const EmployeeForm = () => {
     // const navigate = useNavigate();
@@ -75,20 +76,21 @@ const EmployeeForm = () => {
                 dataAdmissao: new Date(formData.dataAdmissao)
             };
             await userService.addUserEmployee(payload)
+
+            toast.custom((t) => (
+                <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+                    <Check className="w-5 h-5 text-green-500" />
+                    <span>Funcionário cadastrado com sucesso!</span>
+                </div>
+            ))
             setFormData(initialFormData);
-
-            // toast({
-            //     title: "Funcionário cadastrado!",
-            //     description: "O funcionário foi cadastrado com sucesso.",
-            // });
-
-            // navigate("/usuarios");
         } catch (error) {
-            // toast({
-            //     title: "Erro ao cadastrar",
-            //     description: "Ocorreu um erro ao cadastrar o funcionário.",
-            //     variant: "destructive",
-            // });
+            toast.custom((t) => (
+                <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+                    <X className="w-5 h-5 text-red-500" />
+                    <span>Erro ao cadastrar funcionário</span>
+                </div>
+            ))
         } finally {
             setIsLoading(false);
         }

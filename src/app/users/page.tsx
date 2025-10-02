@@ -65,16 +65,22 @@ const Page = () => {
     if (userId) {
       try {
         await userService.deleteUser(parseInt(userId));
-        toast.success("Usuário deletado com sucesso!", {
-          icon: <Check className="w-5 h-5 text-white" />,
-        })
+        toast.custom((t) => (
+          <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+            <Check className="w-5 h-5 text-green-500" />
+            <span>Usuário deletado com sucesso!</span>
+          </div>
+        ))
         await fetchUsers();
 
 
       } catch (error) {
-        toast.error("Erro ao deletar usuário!", {
-          icon: <X className="w-5 h-5 text-white" />,
-        })
+        toast.custom((t) => (
+          <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+            <X className="w-5 h-5 text-red-500" />
+            <span>Erro ao deletar usuário</span>
+          </div>
+        ))
         console.error('Erro ao deletar usuário:', error);
       }
     }
