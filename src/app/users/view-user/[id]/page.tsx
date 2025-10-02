@@ -135,7 +135,7 @@ const UserDetails = ({ params }: { params: Promise<ParamsType> }) => {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                         <div><strong>Cargo:</strong> {user.employee?.cargo}</div>
                                         <div><strong>Departamento:</strong> {user.employee?.departamento}</div>
-                                        <div><strong>Salário:</strong> R$ {user.salario}</div>
+                                        <div><strong>Salário:</strong> R$ {String(user.salario)}</div>
                                         <div><strong>Data de Admissão:</strong> {new Date(user.employee?.dataAdmissao).toLocaleDateString()}</div>
                                         <div><strong>Tipo de Contrato:</strong> {user.employee?.tipoContrato}</div>
                                         <div><strong>Carga Horária:</strong> {user.employee?.cargaHoraria}</div>
