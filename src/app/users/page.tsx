@@ -158,8 +158,8 @@ useEffect(() => {
           {filteredUsers.map((user) => (
             <Card key={user.id} className="shadow-card hover:shadow-elegant transition-all duration-300">
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-3">
+                <div className="flex items-start justify-between bg-red-600">
+                  <div className="flex items-center space-x-3 ">
                     <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
                       <User className="w-6 h-6 text-white" />
                     </div>

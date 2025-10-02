@@ -147,8 +147,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
             }
 
             if (user?.role === 'FUNCIONARIO') {
-                payload.employee = employee
+                payload.employee = {
+                    ...employee,
+                    salario: employee?.salario ? parseFloat(employee.salario) : 0
+                }
             }
+
+            console.log(payload)
 
             await userService.updateUser(id, payload)
 
