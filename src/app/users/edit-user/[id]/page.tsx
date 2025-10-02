@@ -25,7 +25,6 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
     const [user, setUser] = useState<Users>()
 
     const [formData, setFormData] = useState({
-        user: {
             nome: user?.nome,
             email: user?.email,
             role: user?.role,
@@ -36,7 +35,6 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
             dataNascimento: user?.dataNascimento,
             celular1: user?.celular1,
             celular2: user?.celular2,
-        },
 
         employee: {
             cargo: user?.employee?.cargo,
@@ -88,7 +86,6 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
     useEffect(() => {
         if (user) {
             setFormData({
-                user: {
                     nome: user.nome || "",
                     email: user.email || "",
                     role: user.role || "",
@@ -99,7 +96,6 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                     dataNascimento: user.dataNascimento || "",
                     celular1: user?.celular1 || "",
                     celular2: user?.celular2 || "",
-                },
 
                 employee: {
                     cargo: user.employee?.cargo || "",
@@ -142,7 +138,19 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await userService.updateUser(id, formData)
+            const { client, employee, addresses, ...rest } = formData
+
+            let payload: any = { ...rest, addresses }
+
+            if (user?.role === 'CLIENTE') {
+                payload.client = client
+            }
+
+            if (user?.role === 'FUNCIONARIO') {
+                payload.employee = employee
+            }
+
+            await userService.updateUser(id, payload)
 
             // toast de sucesso
             // toast({
@@ -201,8 +209,14 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="nome">Nome Completo*</Label>
                                 <Input
                                     id="nome"
-                                    value={formData.user.nome}
-                                    onChange={(e) => handleChange("nome", e.target.value)}
+                                    value={formData.nome}
+                                    // onChange={(e) => handleChange("nome", e.target.value)}
+                                    onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        nome: e.target.value
+                                    })
+                                }
                                     required
                                 />
                             </div>
@@ -212,7 +226,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="email"
                                     type="email"
-                                    value={formData.user.email}
+                                    value={formData.email}
                                     onChange={(e) => handleChange("email", e.target.value)}
                                     required
                                 />
@@ -222,7 +236,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="rg">RG*</Label>
                                 <Input
                                     id="rg"
-                                    value={formData.user.rg}
+                                    value={formData.rg}
                                     onChange={(e) => handleChange("rg", e.target.value)}
                                     required
                                 />
@@ -232,7 +246,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="orgaoExpedidor">Órgão Expedidor*</Label>
                                 <Input
                                     id="orgaoExpedidor"
-                                    value={formData.user.orgaoExpedidor}
+                                    value={formData.orgaoExpedidor}
                                     onChange={(e) => handleChange("orgaoExpedidor", e.target.value)}
                                     required
                                 />
@@ -240,7 +254,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
 
                             <div className="space-y-2">
                                 <Label htmlFor="estadoCivil">Estado Civil*</Label>
-                                <Select value={formData.user.estadoCivil} onValueChange={(value) => handleChange("estadoCivil", value)}>
+                                <Select value={formData.estadoCivil} onValueChange={(value) => handleChange("estadoCivil", value)}>
                                     <SelectTrigger>
                                         <SelectValue />
                                     </SelectTrigger>
@@ -257,7 +271,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="profissao">Profissão*</Label>
                                 <Input
                                     id="profissao"
-                                    value={formData.user.profissao}
+                                    value={formData.profissao}
                                     onChange={(e) => handleChange("profissao", e.target.value)}
                                     required
                                 />
@@ -268,7 +282,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="dataNascimento"
                                     type="date"
-                                    value={formData.user.dataNascimento ? new Date(formData.user.dataNascimento).toISOString().split("T")[0] : ""}
+                                    value={formData.dataNascimento ? new Date(formData.dataNascimento).toISOString().split("T")[0] : ""}
                                     onChange={(e) => handleChange("dataNascimento", e.target.value)}
                                     required
                                 />
@@ -278,7 +292,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="celular1">Celular Principal*</Label>
                                 <Input
                                     id="celular1"
-                                    value={formData.user.celular1}
+                                    value={formData.celular1}
                                     onChange={(e) => handleChange("celular1", e.target.value)}
                                     required
                                 />
@@ -288,7 +302,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Label htmlFor="celular2">Celular Secundário</Label>
                                 <Input
                                     id="celular2"
-                                    value={formData.user.celular2}
+                                    value={formData.celular2}
                                     onChange={(e) => handleChange("celular2", e.target.value)}
                                 />
                             </div>
@@ -297,7 +311,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                 </Card>
 
                 {/* Informações Profissionais - apenas para funcionários */}
-                {formData.user.role === "FUNCIONARIO" && (
+                {formData.role === "FUNCIONARIO" && (
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
@@ -390,7 +404,7 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                 )}
 
                 {/* Informações de Cliente - apenas para clientes */}
-                {formData.user.role === "CLIENTE" && (
+                {formData.role === "CLIENTE" && (
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
@@ -465,15 +479,6 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     </Select>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <Label htmlFor="parceiroOrigemId">Parceiro Origem</Label>
-                                    <Input
-                                        id="parceiroOrigemId"
-                                        value={formData.client.parceiroOrigemId}
-                                        onChange={(e) => handleChange("parceiroOrigemId", e.target.value)}
-                                    />
-                                </div>
-
                                 {formData.client.tipoPessoa === "Jurídica" && (
                                     <>
                                         <div className="space-y-2">
@@ -534,14 +539,6 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     </>
                                 )}
 
-                                <div className="space-y-2">
-                                    <Label htmlFor="pronuncia">Pronúncia</Label>
-                                    <Input
-                                        id="pronuncia"
-                                        value={formData.client.pronuncia}
-                                        onChange={(e) => handleChange("pronuncia", e.target.value)}
-                                    />
-                                </div>
                             </div>
                         </CardContent>
                     </Card>

@@ -116,11 +116,11 @@ const UserDetails = ({ params }: { params: Promise<ParamsType> }) => {
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <Phone className="w-3 h-3" />
-                                            {user.contacts?.[0]?.celular1 ?? 'Sem informação'}
+                                            {user?.celular1 ?? 'Sem informação'}
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <Phone className="w-3 h-3" />
-                                            {user.contacts?.[0]?.celular1 ?? 'Sem informação'}
+                                            {user?.celular1 ?? 'Sem informação'}
                                         </div>
                                     </div>
                                 </div>
@@ -157,12 +157,12 @@ const UserDetails = ({ params }: { params: Promise<ParamsType> }) => {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-2 text-sm">
-                            <div><strong>CEP:</strong> {user.addresses?.[0].cep}</div>
-                            <div><strong>Logradouro:</strong> {user.addresses?.[0].logradouro}, {user.addresses?.[0].numero}</div>
-                            <div><strong>Bairro:</strong> {user.addresses?.[0].bairro}</div>
-                            <div><strong>Cidade:</strong> {user.addresses?.[0].cidade} - {user.addresses?.[0].estado}</div>
-                            {user.addresses?.[0].complemento && (
-                                <div><strong>Complemento:</strong> {user.addresses?.[0].complemento}</div>
+                            <div><strong>CEP:</strong> {user.addresses?.cep}</div>
+                            <div><strong>Logradouro:</strong> {user.addresses?.logradouro}, {user.addresses?.numero}</div>
+                            <div><strong>Bairro:</strong> {user.addresses?.bairro}</div>
+                            <div><strong>Cidade:</strong> {user.addresses?.cidade} - {user.addresses?.estado}</div>
+                            {user.addresses?.complemento && (
+                                <div><strong>Complemento:</strong> {user.addresses?.complemento}</div>
                             )}
                         </CardContent>
                     </Card>

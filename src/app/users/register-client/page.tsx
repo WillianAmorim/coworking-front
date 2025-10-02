@@ -6,17 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-// import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Save, User, Building } from "lucide-react";
-// import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
 import userService from "@/services/userService";
 import { Users } from "@/types/user";
 
 const ClientForm = () => {
-    // const navigate = useNavigate();
-    // const { toast } = useToast();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -53,7 +48,7 @@ const ClientForm = () => {
             razaoSocial: "",
             tipoPessoa: "",
         },
-        
+
         addresses: {
             cep: "",
             estado: "",
@@ -67,22 +62,20 @@ const ClientForm = () => {
 
     };
 
-   
+    const [formData, setFormData] = useState({
 
-     const [formData, setFormData] = useState({
+        nome: user?.nome || "",
+        email: user?.email || "",
+        role: user?.role || "",
+        rg: user?.rg || "",
+        senha: user?.senha || "",
+        orgaoExpedidor: user?.orgaoExpedidor || "",
+        estadoCivil: user?.estadoCivil || "",
+        profissao: user?.profissao || "",
+        dataNascimento: user?.dataNascimento || "",
+        celular1: user?.celular1 || "",
+        celular2: user?.celular2 || "",
 
-            nome: user?.nome || "",
-            email: user?.email || "",
-            role: user?.role || "",
-            rg: user?.rg || "",
-            senha: user?.senha || "",
-            orgaoExpedidor: user?.orgaoExpedidor || "",
-            estadoCivil: user?.estadoCivil || "",
-            profissao: user?.profissao || "",
-            dataNascimento: user?.dataNascimento || "",
-            celular1: user?.celular1 || "",
-            celular2: user?.celular2 || "",
-        
         // Dados do cliente
         client: {
             plano: user?.client?.plano || "",
@@ -110,27 +103,16 @@ const ClientForm = () => {
         }
     });
 
-    
-
-
-    const handleInputChange = (field: string, value: string | boolean) => {
-        setFormData(prev => ({
-            ...prev,
-            [field]: value
-        }));
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
 
         try {
+
+            console.log(formData, 'formData')
             const payload = {
                 ...formData,
                 dataNascimento: new Date(formData.dataNascimento),
-                
-                // salario: parseFloat(formData.salario),
-                // dataAdmissao: new Date(formData.dataAdmissao)
             };
             await userService.addUserClient(payload)
             setFormData(initialFormData);
@@ -187,7 +169,12 @@ const ClientForm = () => {
                             <Input
                                 id="nome"
                                 value={formData.nome}
-                                onChange={(e) => handleInputChange("nome", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        nome: e.target.value
+                                    })
+                                }
                                 required
                             />
                         </div>
@@ -197,7 +184,12 @@ const ClientForm = () => {
                                 id="email"
                                 type="email"
                                 value={formData.email}
-                                onChange={(e) => handleInputChange("email", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        email: e.target.value
+                                    })
+                                }
                                 required
                             />
                         </div>
@@ -207,7 +199,12 @@ const ClientForm = () => {
                                 id="senha"
                                 type="password"
                                 value={formData.senha}
-                                onChange={(e) => handleInputChange("senha", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        senha: e.target.value
+                                    })
+                                }
                                 required
                             />
                         </div>
@@ -216,23 +213,40 @@ const ClientForm = () => {
                             <Input
                                 id="rg"
                                 value={formData.rg}
-                                onChange={(e) => handleInputChange("rg", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        rg: e.target.value
+                                    })
+                                }
                                 required
                             />
                         </div>
-                        
+
                         <div className="space-y-2">
                             <Label htmlFor="orgaoExpedidor">Órgão Expedidor *</Label>
                             <Input
                                 id="orgaoExpedidor"
                                 value={formData.orgaoExpedidor}
-                                onChange={(e) => handleInputChange("orgaoExpedidor", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        orgaoExpedidor: e.target.value
+                                    })
+                                }
                                 required
                             />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="estadoCivil">Estado Civil</Label>
-                            <Select value={formData.estadoCivil} onValueChange={(value) => handleInputChange("estadoCivil", value)}>
+                            <Select value={formData.estadoCivil}
+                                onValueChange={(value) =>
+                                    setFormData({
+                                        ...formData,
+                                        estadoCivil: value
+                                    })
+                                }
+                            >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Selecione" />
                                 </SelectTrigger>
@@ -249,7 +263,14 @@ const ClientForm = () => {
                             <Input
                                 id="profissao"
                                 value={formData.profissao}
-                                onChange={(e) => handleInputChange("profissao", e.target.value)}
+                                // onChange={(e) => handleInputChangeUser("profissao", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        profissao: e.target.value
+                                    })
+                                }
+
                             />
                         </div>
                         <div className="space-y-2">
@@ -258,7 +279,13 @@ const ClientForm = () => {
                                 id="dataNascimento"
                                 type="date"
                                 value={formData.dataNascimento}
-                                onChange={(e) => handleInputChange("dataNascimento", e.target.value)}
+                                // onChange={(e) => handleInputChangeUser("dataNascimento", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        dataNascimento: e.target.value
+                                    })
+                                }
                             />
                         </div>
                     </CardContent>
@@ -271,29 +298,52 @@ const ClientForm = () => {
                     <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="plano">Plano *</Label>
-                            <Select value={formData.client.plano} onValueChange={(value) => handleInputChange("plano", value)}>
+                            <Select value={formData.client.plano}
+                                // onValueChange={(value) => handleInputChangeClient("plano", value)}
+                                onValueChange={(value) =>
+                                    setFormData({
+                                        ...formData,
+                                        client: { ...formData.client, plano: value }
+                                    })
+                                }
+                            >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Selecione o plano" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="Mensal">Mensal</SelectItem>
-                                    <SelectItem value="Diário">Diário</SelectItem>
-                                    <SelectItem value="Flex">Flex</SelectItem>
+                                    <SelectItem value="MENSAL">Mensal</SelectItem>
+                                    <SelectItem value="SEMANAL">Semanal</SelectItem>
+                                    <SelectItem value="DIARIO">Diário</SelectItem>
+                                    <SelectItem value="FLEX">Flex</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
-                        <div className="space-y-2">
+                        {/* <div className="space-y-2">
                             <Label htmlFor="razaoSocial">Razao Social *</Label>
                             <Input
                                 id="razaoSocial"
                                 value={formData.client.razaoSocial}
-                                onChange={(e) => handleInputChange("razaoSocial", e.target.value)}
+                                // onChange={(e) => handleInputChangeClient("razaoSocial", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        client: { ...formData.client, razaoSocial: e.target.value }
+                                    })
+                                }
                                 required
                             />
-                        </div>
+                        </div> */}
                         <div className="space-y-2">
                             <Label htmlFor="tipoPessoa">Tipo de Pessoa *</Label>
-                            <Select value={formData.client.tipoPessoa} onValueChange={(value) => handleInputChange("tipoPessoa", value)}>
+                            <Select value={formData.client.tipoPessoa}
+                                // onValueChange={(value) => handleInputChangeClient("tipoPessoa", value)}
+                                onValueChange={(value) =>
+                                    setFormData({
+                                        ...formData,
+                                        client: { ...formData.client, tipoPessoa: value }
+                                    })
+                                }
+                            >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Selecione" />
                                 </SelectTrigger>
@@ -308,20 +358,35 @@ const ClientForm = () => {
                             <Input
                                 id="documento"
                                 value={formData.client.documento}
-                                onChange={(e) => handleInputChange("documento", e.target.value)}
+                                // onChange={(e) => handleInputChangeClient("documento", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        client: { ...formData.client, documento: e.target.value }
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="meioFaturamentoPadrao">Meio de Faturamento</Label>
-                            <Select value={formData.client.meioFaturamentoPadrao} onValueChange={(value) => handleInputChange("meioFaturamentoPadrao", value)}>
+                            <Select
+                                value={formData.client.meioFaturamentoPadrao}
+                                // onValueChange={(value) => handleInputChangeClient("meioFaturamentoPadrao", value)}
+                                onValueChange={(value) =>
+                                    setFormData({
+                                        ...formData,
+                                        client: { ...formData.client, meioFaturamentoPadrao: value }
+                                    })
+                                }
+                            >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Selecione" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="Boleto">Boleto</SelectItem>
+                                    <SelectItem value="BOLETO">Boleto</SelectItem>
                                     <SelectItem value="PIX">PIX</SelectItem>
-                                    <SelectItem value="Cartão">Cartão de Crédito</SelectItem>
-                                    <SelectItem value="Dinheiro">Dinheiro</SelectItem>
+                                    <SelectItem value="CARTAO">Cartão de Crédito</SelectItem>
+                                    <SelectItem value="DINHEIRO">Dinheiro</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -342,7 +407,13 @@ const ClientForm = () => {
                                 <Input
                                     id="razaoSocial"
                                     value={formData.client.razaoSocial}
-                                    onChange={(e) => handleInputChange("razaoSocial", e.target.value)}
+                                    // onChange={(e) => handleInputChange("razaoSocial", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            client: { ...formData.client, razaoSocial: e.target.value }
+                                        })
+                                    }
                                 />
                             </div>
                             <div className="space-y-2">
@@ -350,7 +421,13 @@ const ClientForm = () => {
                                 <Input
                                     id="nomeFantasia"
                                     value={formData.client.nomeFantasia}
-                                    onChange={(e) => handleInputChange("nomeFantasia", e.target.value)}
+                                    // onChange={(e) => handleInputChange("nomeFantasia", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            client: { ...formData.client, nomeFantasia: e.target.value }
+                                        })
+                                    }
                                 />
                             </div>
                             <div className="space-y-2">
@@ -358,7 +435,13 @@ const ClientForm = () => {
                                 <Input
                                     id="inscricaoMunicipal"
                                     value={formData.client.inscricaoMunicipal}
-                                    onChange={(e) => handleInputChange("inscricaoMunicipal", e.target.value)}
+                                    // onChange={(e) => handleInputChange("inscricaoMunicipal", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            client: { ...formData.client, inscricaoMunicipal: e.target.value }
+                                        })
+                                    }
                                 />
                             </div>
                             <div className="space-y-2">
@@ -366,7 +449,13 @@ const ClientForm = () => {
                                 <Input
                                     id="inscricaoEstadual"
                                     value={formData.client.inscricaoEstadual}
-                                    onChange={(e) => handleInputChange("inscricaoEstadual", e.target.value)}
+                                    // onChange={(e) => handleInputChange("inscricaoEstadual", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            client: { ...formData.client, inscricaoEstadual: e.target.value }
+                                        })
+                                    }
                                 />
                             </div>
                             <div className="space-y-2">
@@ -374,7 +463,13 @@ const ClientForm = () => {
                                 <Input
                                     id="ramoAtividade"
                                     value={formData.client.ramoAtividade}
-                                    onChange={(e) => handleInputChange("ramoAtividade", e.target.value)}
+                                    // onChange={(e) => handleInputChange("ramoAtividade", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            client: { ...formData.client, ramoAtividade: e.target.value }
+                                        })
+                                    }
                                 />
                             </div>
                             <div className="space-y-2">
@@ -383,7 +478,13 @@ const ClientForm = () => {
                                     id="dataFundacao"
                                     type="date"
                                     value={formData.client.dataFundacao}
-                                    onChange={(e) => handleInputChange("dataFundacao", e.target.value)}
+                                    // onChange={(e) => handleInputChange("dataFundacao", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            client: { ...formData.client, dataFundacao: e.target.value }
+                                        })
+                                    }
                                 />
                             </div>
                         </CardContent>
@@ -400,7 +501,13 @@ const ClientForm = () => {
                             <Input
                                 id="cep"
                                 value={formData.addresses.cep}
-                                onChange={(e) => handleInputChange("cep", e.target.value)}
+                                // onChange={(e) => handleInputChange("cep", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        addresses: { ...formData.addresses, cep: e.target.value }
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -408,7 +515,13 @@ const ClientForm = () => {
                             <Input
                                 id="estado"
                                 value={formData.addresses.estado}
-                                onChange={(e) => handleInputChange("estado", e.target.value)}
+                                // onChange={(e) => handleInputChange("estado", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        addresses: { ...formData.addresses, estado: e.target.value }
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -416,7 +529,13 @@ const ClientForm = () => {
                             <Input
                                 id="cidade"
                                 value={formData.addresses.cidade}
-                                onChange={(e) => handleInputChange("cidade", e.target.value)}
+                                // onChange={(e) => handleInputChange("cidade", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        addresses: { ...formData.addresses, cidade: e.target.value }
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -424,7 +543,13 @@ const ClientForm = () => {
                             <Input
                                 id="logradouro"
                                 value={formData.addresses.logradouro}
-                                onChange={(e) => handleInputChange("logradouro", e.target.value)}
+                                // onChange={(e) => handleInputChange("logradouro", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        addresses: { ...formData.addresses, logradouro: e.target.value }
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -432,7 +557,13 @@ const ClientForm = () => {
                             <Input
                                 id="numero"
                                 value={formData.addresses.numero}
-                                onChange={(e) => handleInputChange("numero", e.target.value)}
+                                // onChange={(e) => handleInputChange("numero", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        addresses: { ...formData.addresses, numero: e.target.value }
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -440,7 +571,13 @@ const ClientForm = () => {
                             <Input
                                 id="bairro"
                                 value={formData.addresses.bairro}
-                                onChange={(e) => handleInputChange("bairro", e.target.value)}
+                                // onChange={(e) => handleInputChange("bairro", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        addresses: { ...formData.addresses, bairro: e.target.value }
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2 md:col-span-2">
@@ -448,7 +585,13 @@ const ClientForm = () => {
                             <Input
                                 id="complemento"
                                 value={formData.addresses.complemento}
-                                onChange={(e) => handleInputChange("complemento", e.target.value)}
+                                // onChange={(e) => handleInputChange("complemento", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        addresses: { ...formData.addresses, complemento: e.target.value }
+                                    })
+                                }
                             />
                         </div>
                     </CardContent>
@@ -464,7 +607,13 @@ const ClientForm = () => {
                             <Input
                                 id="celular1"
                                 value={formData.celular1}
-                                onChange={(e) => handleInputChange("celular1", e.target.value)}
+                                // onChange={(e) => handleInputChange("celular1", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        celular1: e.target.value
+                                    })
+                                }
                                 required
                             />
                         </div>
@@ -473,7 +622,13 @@ const ClientForm = () => {
                             <Input
                                 id="celular2"
                                 value={formData.celular2}
-                                onChange={(e) => handleInputChange("celular2", e.target.value)}
+                                // onChange={(e) => handleInputChange("celular2", e.target.value)}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        celular2: e.target.value
+                                    })
+                                }
                             />
                         </div>
                     </CardContent>

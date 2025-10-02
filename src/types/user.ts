@@ -1,19 +1,3 @@
-
-export enum UserRole {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
-  EMPLOYEE = 'EMPLOYEE',
-  CLIENT = 'CLIENT'
-}
-
-
-export enum EstadoCivil {
-  SOLTEIRO = 'SOLTEIRO',
-  CASADO = 'CASADO',
-  DIVORCIADO = 'DIVORCIADO',
-  VIUVO = 'VIUVO'
-}
-
 interface Client {
   dataFundacao: string,
   documento: string,
@@ -60,10 +44,10 @@ export interface Users {
   nome: string;
   email: string;
   senha: string;
-  role: UserRole | string;
+  role: string;
   rg: string;
   orgaoExpedidor: string;
-  estadoCivil: EstadoCivil | string;
+  estadoCivil: string;
   profissao: string;
   dataNascimento: string;
   criadoEm?: string;
