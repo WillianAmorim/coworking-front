@@ -11,6 +11,7 @@ import { ArrowLeft, Save, User } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
 import userService from "@/services/userService";
+import { parse } from "path";
 
 const EmployeeForm = () => {
     // const navigate = useNavigate();
@@ -222,7 +223,7 @@ const EmployeeForm = () => {
                                 id="salario"
                                 type="number"
                                 step="0.01"
-                                value={formData.salario}
+                                value={parseFloat(formData.salario) === 0 ? "" : formData.salario}
                                 onChange={(e) => handleInputChange("salario", e.target.value)}
                             />
                         </div>
