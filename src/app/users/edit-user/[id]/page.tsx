@@ -371,10 +371,10 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="CLT">CLT</SelectItem>
-                                            <SelectItem value="PJ">PJ</SelectItem>
-                                            <SelectItem value="Estágio">Estágio</SelectItem>
-                                            <SelectItem value="Terceirizado">Terceirizado</SelectItem>
+                                            <SelectItem value="clt">CLT</SelectItem>
+                                            <SelectItem value="pj">PJ</SelectItem>
+                                            <SelectItem value="estagio">Estágio</SelectItem>
+                                            <SelectItem value="tercerizado">Terceirizado</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
