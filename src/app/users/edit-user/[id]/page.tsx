@@ -326,7 +326,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Input
                                         id="cargo"
                                         value={formData.employee.cargo}
-                                        onChange={(e) => handleChange("cargo", e.target.value)}
+                                        // onChange={(e) => handleChange("cargo", e.target.value)}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                employee: { ...formData.employee, cargo: e.target.value }
+                                            })
+                                        }
                                         required
                                     />
                                 </div>
@@ -336,7 +342,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Input
                                         id="departamento"
                                         value={formData.employee.departamento}
-                                        onChange={(e) => handleChange("departamento", e.target.value)}
+                                        // onChange={(e) => handleChange("departamento", e.target.value)}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                employee: { ...formData.employee, departamento: e.target.value }
+                                            })
+                                        }
                                         required
                                     />
                                 </div>
@@ -348,7 +360,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                         type="number"
                                         step="0.01"
                                         value={formData.employee.salario}
-                                        onChange={(e) => handleChange("salario", e.target.value)}
+                                        // onChange={(e) => handleChange("salario", e.target.value)}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                employee: { ...formData.employee, salario: e.target.value }
+                                            })
+                                        }
                                         required
                                     />
                                 </div>
@@ -359,14 +377,29 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                         id="dataAdmissao"
                                         type="date"
                                         value={formData.employee?.dataAdmissao?.split("T")[0] || ""}
-                                        onChange={(e) => handleChange("dataAdmissao", e.target.value)}
+                                        // onChange={(e) => handleChange("dataAdmissao", e.target.value)}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                employee: { ...formData.employee, dataAdmissao: e.target.value }
+                                            })
+                                        }
                                         required
                                     />
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="tipoContrato">Tipo de Contrato*</Label>
-                                    <Select value={formData.employee.tipoContrato} onValueChange={(value) => handleChange("tipoContrato", value)}>
+                                    <Select
+                                        value={formData.employee.tipoContrato}
+                                        // onValueChange={(value) => handleChange("tipoContrato", value)}
+                                        onValueChange={(value) =>
+                                            setFormData({
+                                                ...formData,
+                                                employee: { ...formData.employee, tipoContrato: value }
+                                            })
+                                        }
+                                    >
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
@@ -384,7 +417,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Input
                                         id="cargaHoraria"
                                         value={formData.employee.cargaHoraria}
-                                        onChange={(e) => handleChange("cargaHoraria", e.target.value)}
+                                        // onChange={(e) => handleChange("cargaHoraria", e.target.value)}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                employee: { ...formData.employee, cargaHoraria: e.target.value }
+                                            })
+                                        }
                                         required
                                     />
                                 </div>
@@ -394,7 +433,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Input
                                         id="matriculaInterna"
                                         value={formData.employee.matriculaInterna}
-                                        onChange={(e) => handleChange("matriculaInterna", e.target.value)}
+                                        // onChange={(e) => handleChange("matriculaInterna", e.target.value)}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                employee: { ...formData.employee, matriculaInterna: e.target.value }
+                                            })
+                                        }
                                         required
                                     />
                                 </div>
@@ -416,21 +461,39 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="plano">Plano*</Label>
-                                    <Select value={formData.client.plano} onValueChange={(value) => handleChange("plano", value)}>
+                                    <Select
+                                        value={formData.client.plano}
+                                        // onValueChange={(value) => handleChange("plano", value)}
+                                        onValueChange={(value) =>
+                                            setFormData({
+                                                ...formData,
+                                                client: { ...formData.client, plano: value }
+                                            })
+                                        }
+                                    >
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="Mensal">Mensal</SelectItem>
-                                            <SelectItem value="Diário">Diário</SelectItem>
-                                            <SelectItem value="Flex">Flex</SelectItem>
+                                            <SelectItem value="MENSAL">Mensal</SelectItem>
+                                            <SelectItem value="DIARIO">Diário</SelectItem>
+                                            <SelectItem value="FLEX">Flex</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="tipoPessoa">Tipo de Pessoa*</Label>
-                                    <Select value={formData.client.tipoPessoa} onValueChange={(value) => handleChange("tipoPessoa", value)}>
+                                    <Select
+                                        value={formData.client.tipoPessoa}
+                                        // onValueChange={(value) => handleChange("tipoPessoa", value)}
+                                        onValueChange={(value) =>
+                                            setFormData({
+                                                ...formData,
+                                                client: { ...formData.client, tipoPessoa: value }
+                                            })
+                                        }
+                                    >
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
@@ -446,7 +509,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                     <Input
                                         id="documento"
                                         value={formData.client.documento}
-                                        onChange={(e) => handleChange("documento", e.target.value)}
+                                        // onChange={(e) => handleChange("documento", e.target.value)}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                client: { ...formData.client, documento: e.target.value }
+                                            })
+                                        }
                                         required
                                     />
                                 </div>
@@ -466,7 +535,16 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
 
                                 <div className="space-y-2">
                                     <Label htmlFor="meioFaturamentoPadrao">Meio de Faturamento*</Label>
-                                    <Select value={formData.client.meioFaturamentoPadrao} onValueChange={(value) => handleChange("meioFaturamentoPadrao", value)}>
+                                    <Select
+                                        value={formData.client.meioFaturamentoPadrao}
+                                        // onValueChange={(value) => handleChange("meioFaturamentoPadrao", value)}
+                                        onValueChange={(value) =>
+                                            setFormData({
+                                                ...formData,
+                                                client: { ...formData.client, meioFaturamentoPadrao: value }
+                                            })
+                                        }
+                                    >
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
@@ -486,7 +564,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Input
                                                 id="razaoSocial"
                                                 value={formData.client.razaoSocial}
-                                                onChange={(e) => handleChange("razaoSocial", e.target.value)}
+                                                // onChange={(e) => handleChange("razaoSocial", e.target.value)}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        client: { ...formData.client, razaoSocial: e.target.value }
+                                                    })
+                                                }
                                                 required
                                             />
                                         </div>
@@ -496,7 +580,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Input
                                                 id="nomeFantasia"
                                                 value={formData.client.nomeFantasia}
-                                                onChange={(e) => handleChange("nomeFantasia", e.target.value)}
+                                                // onChange={(e) => handleChange("nomeFantasia", e.target.value)}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        client: { ...formData.client, nomeFantasia: e.target.value }
+                                                    })
+                                                }
                                             />
                                         </div>
 
@@ -505,7 +595,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Input
                                                 id="inscricaoMunicipal"
                                                 value={formData.client.inscricaoMunicipal}
-                                                onChange={(e) => handleChange("inscricaoMunicipal", e.target.value)}
+                                                // onChange={(e) => handleChange("inscricaoMunicipal", e.target.value)}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        client: { ...formData.client, inscricaoMunicipal: e.target.value }
+                                                    })
+                                                }
                                             />
                                         </div>
 
@@ -514,7 +610,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Input
                                                 id="inscricaoEstadual"
                                                 value={formData.client.inscricaoEstadual}
-                                                onChange={(e) => handleChange("inscricaoEstadual", e.target.value)}
+                                                // onChange={(e) => handleChange("inscricaoEstadual", e.target.value)}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        client: { ...formData.client, inscricaoEstadual: e.target.value }
+                                                    })
+                                                }
                                             />
                                         </div>
 
@@ -523,7 +625,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                             <Input
                                                 id="ramoAtividade"
                                                 value={formData.client.ramoAtividade}
-                                                onChange={(e) => handleChange("ramoAtividade", e.target.value)}
+                                                // onChange={(e) => handleChange("ramoAtividade", e.target.value)}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        client: { ...formData.client, ramoAtividade: e.target.value }
+                                                    })
+                                                }
                                             />
                                         </div>
 
@@ -533,7 +641,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                                 id="dataFundacao"
                                                 type="date"
                                                 value={formData.client.dataFundacao}
-                                                onChange={(e) => handleChange("dataFundacao", e.target.value)}
+                                                // onChange={(e) => handleChange("dataFundacao", e.target.value)}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        client: { ...formData.client, dataFundacao: e.target.value }
+                                                    })
+                                                }
                                             />
                                         </div>
                                     </>
@@ -556,7 +670,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="cep"
                                     value={formData.addresses.cep}
-                                    onChange={(e) => handleChange("cep", e.target.value)}
+                                    // onChange={(e) => handleChange("cep", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            addresses: { ...formData.addresses, cep: e.target.value }
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -566,7 +686,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="estado"
                                     value={formData.addresses.estado}
-                                    onChange={(e) => handleChange("estado", e.target.value)}
+                                    // onChange={(e) => handleChange("estado", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            addresses: { ...formData.addresses, estado: e.target.value }
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -576,7 +702,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="cidade"
                                     value={formData.addresses.cidade}
-                                    onChange={(e) => handleChange("cidade", e.target.value)}
+                                    // onChange={(e) => handleChange("cidade", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            addresses: { ...formData.addresses, cidade: e.target.value }
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -586,7 +718,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="logradouro"
                                     value={formData.addresses.logradouro}
-                                    onChange={(e) => handleChange("logradouro", e.target.value)}
+                                    // onChange={(e) => handleChange("logradouro", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            addresses: { ...formData.addresses, logradouro: e.target.value }
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -596,7 +734,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="numero"
                                     value={formData.addresses.numero}
-                                    onChange={(e) => handleChange("numero", e.target.value)}
+                                    // onChange={(e) => handleChange("numero", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            addresses: { ...formData.addresses, numero: e.target.value }
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -606,7 +750,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="bairro"
                                     value={formData.addresses.bairro}
-                                    onChange={(e) => handleChange("bairro", e.target.value)}
+                                    // onChange={(e) => handleChange("bairro", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            addresses: { ...formData.addresses, bairro: e.target.value }
+                                        })
+                                    }
                                     required
                                 />
                             </div>
@@ -616,7 +766,13 @@ const UserEdit = ({ params }: { params: Promise<ParamsType> }) => {
                                 <Input
                                     id="complemento"
                                     value={formData.addresses.complemento}
-                                    onChange={(e) => handleChange("complemento", e.target.value)}
+                                    // onChange={(e) => handleChange("complemento", e.target.value)}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            addresses: { ...formData.addresses, complemento: e.target.value }
+                                        })
+                                    }
                                 />
                             </div>
                         </div>
