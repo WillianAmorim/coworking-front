@@ -1,11 +1,16 @@
 "use client"
 
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import { useState, useEffect } from "react";
+>>>>>>> estilizacao
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+<<<<<<< HEAD
 import { UserPlus, Search, Filter, Mail, Phone, User, Grid, List, Eye, Edit } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -48,6 +53,13 @@ const mockUsers = [
     tipoPessoa: "PJ",
   },
 ];
+=======
+import { UserPlus, Search, Filter, Mail, Phone, User, Grid, List, Eye, Edit, Trash, Check, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import userService from "@/services/userService";
+import { Users } from "@/types/user";
+import { toast } from "sonner"
+>>>>>>> estilizacao
 
 const Page = () => {
   const router = useRouter();
@@ -56,15 +68,49 @@ const Page = () => {
   const [roleFilter, setRoleFilter] = useState("todos");
   const [viewMode, setViewMode] = useState<"cards" | "list">("cards");
 
+<<<<<<< HEAD
   const filteredUsers = mockUsers.filter((user) => {
     const matchesSearch = user.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === "todos" || user.role === roleFilter;
+=======
+  const [users, setUsers] = useState<Users[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<string | null>(null);
+
+  // Função para buscar usuários da API
+  const fetchUsers = async () => {
+    try {
+      // setLoading(true);
+      // setError(null);
+      const fetchedUsers = await userService.getUsers();
+      setUsers(fetchedUsers);
+    } catch (err) {
+      // setError('Erro ao carregar usuários. Tente novamente.');
+      console.error('Erro ao buscar usuários:', err);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const filteredUsers = users.filter((users) => {
+    const matchesSearch = users.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      users.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRole = roleFilter === "todos" || users.role === roleFilter;
+>>>>>>> estilizacao
     return matchesSearch && matchesRole;
   });
 
   const getRoleBadge = (role: string) => {
+<<<<<<< HEAD
     return role === "funcionario" ? (
+=======
+    return role === "FUNCIONARIO" ? (
+>>>>>>> estilizacao
       <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
         Funcionário
       </Badge>
@@ -75,6 +121,34 @@ const Page = () => {
     );
   };
 
+<<<<<<< HEAD
+=======
+  const deleteUser = async (userId?: string) => {
+    if (userId) {
+      try {
+        await userService.deleteUser(parseInt(userId));
+        toast.custom((t) => (
+          <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+            <Check className="w-5 h-5 text-green-500" />
+            <span>Usuário deletado com sucesso!</span>
+          </div>
+        ))
+        await fetchUsers();
+
+
+      } catch (error) {
+        toast.custom((t) => (
+          <div className="bg-white text-black p-4 rounded shadow-md flex items-center gap-2">
+            <X className="w-5 h-5 text-red-500" />
+            <span>Erro ao deletar usuário</span>
+          </div>
+        ))
+        console.error('Erro ao deletar usuário:', error);
+      }
+    }
+  }
+
+>>>>>>> estilizacao
   return (
     <div className="space-y-6">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -87,6 +161,7 @@ const Page = () => {
 
         <div className="flex flex-col sm:flex-row gap-2">
           <Button
+<<<<<<< HEAD
             onClick={() => router.push("/users/employeeForm")}
             className="bg-secondary hover:bg-secondary-hover text-secondary-foreground"
           >
@@ -98,17 +173,45 @@ const Page = () => {
             className="bg-primary hover:bg-primary-hover"
           >
             <UserPlus className="w-4 h-4 mr-2" />
+=======
+            onClick={() => router.push("/users/register-employee")}
+            className="bg-secondary hover:bg-secondary-hover text-secondary-foreground 
+                transition-all duration-300 ease-in-out 
+                hover:scale-105 hover:shadow-lg hover:shadow-purple-200 
+                transform active:scale-95"
+          >
+            <UserPlus className="w-4 h-4 mr-2 bg-purple-500 hover:bg-purple-600" />
+            Novo Funcionário
+          </Button>
+          <Button
+            onClick={() => router.push("/users/register-client")}
+            className="bg-primary hover:bg-primary-hover text-primary-foreground
+              transition-all duration-300 ease-in-out 
+              hover:scale-105 hover:shadow-lg hover:shadow-blue-200 
+              transform active:scale-95"
+          >
+            <UserPlus className="w-4 h-4 mr-2 bg-blue-500 hover:bg-blue-600" />
+>>>>>>> estilizacao
             Novo Cliente
           </Button>
         </div>
       </div>
 
+<<<<<<< HEAD
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Filtros</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col lg:flex-row gap-4">
+=======
+      <Card className="overflow-visible">
+        <CardHeader>
+          <CardTitle className="text-lg">Filtros</CardTitle>
+        </CardHeader>
+        <CardContent className="overflow-visible">
+          <div className="flex flex-col lg:flex-row gap-4 overflow-visible">
+>>>>>>> estilizacao
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -121,16 +224,32 @@ const Page = () => {
               </div>
             </div>
             <div className="flex gap-2">
+<<<<<<< HEAD
               <div className="w-full sm:w-48">
+=======
+              <div className="w-full sm:w-48 relative">
+>>>>>>> estilizacao
                 <Select value={roleFilter} onValueChange={setRoleFilter}>
                   <SelectTrigger>
                     <Filter className="w-4 h-4 mr-2" />
                     <SelectValue placeholder="Filtrar por tipo" />
                   </SelectTrigger>
+<<<<<<< HEAD
                   <SelectContent>
                     <SelectItem value="todos">Todos</SelectItem>
                     <SelectItem value="funcionario">Funcionários</SelectItem>
                     <SelectItem value="cliente">Clientes</SelectItem>
+=======
+                  <SelectContent
+                    position="popper"
+                    side="bottom"
+                    align="start"
+                    className="w-[250px] max-h-[250px]"
+                  >
+                    <SelectItem value="todos">Todos</SelectItem>
+                    <SelectItem value="FUNCIONARIO">Funcionários</SelectItem>
+                    <SelectItem value="CLIENTE">Clientes</SelectItem>
+>>>>>>> estilizacao
                   </SelectContent>
                 </Select>
               </div>
@@ -162,9 +281,15 @@ const Page = () => {
           {filteredUsers.map((user) => (
             <Card key={user.id} className="shadow-card hover:shadow-elegant transition-all duration-300">
               <CardHeader>
+<<<<<<< HEAD
                 <div className="flex items-start justify-between">
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+=======
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3 ">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
+>>>>>>> estilizacao
                       <User className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -172,6 +297,12 @@ const Page = () => {
                       {getRoleBadge(user.role)}
                     </div>
                   </div>
+<<<<<<< HEAD
+=======
+                  <div onClick={() => deleteUser(user.id)}>
+                    <Trash className="w-10 h-10 cursor-pointer text-gray-400" />
+                  </div>
+>>>>>>> estilizacao
                 </div>
               </CardHeader>
               <CardContent className="space-y-3">
@@ -184,6 +315,7 @@ const Page = () => {
                   <span>{user.celular1}</span>
                 </div>
 
+<<<<<<< HEAD
                 {user.role === "funcionario" ? (
                   <div className="space-y-1">
                     <p className="text-sm"><strong>Cargo:</strong> {user.cargo}</p>
@@ -201,6 +333,25 @@ const Page = () => {
                     variant="outline"
                     size="sm"
                     onClick={() => router.push(`/users/userDetails${user.id}`)}
+=======
+                {user.role === "FUNCIONARIO" ? (
+                  <div className="space-y-1">
+                    <p className="text-sm"><strong>Cargo:</strong> {user.employee?.cargo}</p>
+                    <p className="text-sm"><strong>Departamento:</strong> {user.employee?.departamento}</p>
+                  </div>
+                ) : (
+                  <div className="space-y-1">
+                    <p className="text-sm"><strong>Plano:</strong> {user.client?.plano}</p>
+                    <p className="text-sm"><strong>Tipo:</strong> {user.client?.tipoPessoa}</p>
+                  </div>
+                )}
+
+                <div className="hidden sm:flex gap-2 flex-shrink-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => router.push(`/users/view-user/${user.id}`)}
+>>>>>>> estilizacao
                     className="flex-1"
                   >
                     <Eye className="w-4 h-4 mr-1" />
@@ -209,7 +360,11 @@ const Page = () => {
                   <Button
                     variant="outline"
                     size="sm"
+<<<<<<< HEAD
                     onClick={() => router.push(`/users/${user.id}/edit`)}
+=======
+                    onClick={() => router.push(`/users/edit-user/${user.id}`)}
+>>>>>>> estilizacao
                     className="flex-1"
                   >
                     <Edit className="w-4 h-4 mr-1" />
@@ -226,6 +381,7 @@ const Page = () => {
             <div className="divide-y">
               {filteredUsers.map((user) => (
                 <div key={user.id} className="p-4 hover:bg-muted/50 transition-colors">
+<<<<<<< HEAD
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                       <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
@@ -253,6 +409,35 @@ const Page = () => {
                         ) : (
                           <div className="text-xs text-muted-foreground mt-1">
                             {user.plano} • {user.tipoPessoa}
+=======
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                    <div className="min-w-0 flex-1 flex items-center space-x-4">
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                        <User className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-semibold truncate">{user.nome}</h3>
+                          {getRoleBadge(user.role)}
+                        </div>
+                        <div className="space-y-1 text-sm text-muted-foreground mt-1">
+                          <div className="flex items-center gap-1 min-w-0">
+                            <Mail className="w-3 h-3 flex-shrink-0 text-blue-500" />
+                            <span className="truncate">{user.email}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Phone className="w-3 h-3 flex-shrink-0 text-green-500" />
+                            <span>{user.celular1}</span>
+                          </div>
+                        </div>
+                        {user.role === "funcionario" ? (
+                          <div className="text-xs text-muted-foreground mt-1">
+                            {user.employee?.cargo} • {user.employee?.departamento}
+                          </div>
+                        ) : (
+                          <div className="text-xs text-muted-foreground mt-1">
+                            {user.client?.plano} • {user.client?.tipoPessoa}
+>>>>>>> estilizacao
                           </div>
                         )}
                       </div>
@@ -261,7 +446,11 @@ const Page = () => {
                       <Button
                         variant="outline"
                         size="sm"
+<<<<<<< HEAD
                         // onClick={() => navigate(`/usuario/${user.id}`)}
+=======
+                      // onClick={() => navigate(`/usuario/${user.id}`)}
+>>>>>>> estilizacao
                       >
                         <Eye className="w-4 h-4 mr-1" />
                         Ver
@@ -269,12 +458,29 @@ const Page = () => {
                       <Button
                         variant="outline"
                         size="sm"
+<<<<<<< HEAD
                         // onClick={() => navigate(`/usuario/${user.id}/editar`)}
+=======
+                      // onClick={() => navigate(`/usuario/${user.id}/editar`)}
+>>>>>>> estilizacao
                       >
                         <Edit className="w-4 h-4 mr-1" />
                         Editar
                       </Button>
                     </div>
+<<<<<<< HEAD
+=======
+                    {/* Actions - mobile */}
+                    <div className="sm:hidden flex justify-end">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-11 w-11"
+                      >
+                        <span className="text-lg">⋯</span>
+                      </Button>
+                    </div>
+>>>>>>> estilizacao
                   </div>
                 </div>
               ))}

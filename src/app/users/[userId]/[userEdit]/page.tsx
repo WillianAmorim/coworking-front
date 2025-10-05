@@ -49,7 +49,7 @@ const UserEdit = () => {
     //     e.preventDefault();
     //     // Aqui faria a chamada da API para atualizar o usuário
     //     toast({
-    //       title: "Usuário atualizado!",
+    //       title: "Usuário atualizado!"
     //       description: "As informações foram salvas com sucesso.",
     //     });
     //     navigate(`/usuario/${id}`);

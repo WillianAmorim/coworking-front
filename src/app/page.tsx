@@ -11,13 +11,15 @@ const Page = () => {
       title: "Total de Usuários",
       value: "156",
       description: "Funcionários e clientes",
+      hover: "shadow-blue-200 rotate-1 scale-105 bg-blue-50",
       icon: Users,
-      color: "text-primary",
+      color: "text-blue-500",
     },
     {
       title: "Funcionários",
       value: "24",
       description: "Membros da equipe",
+      hover: "shadow-purple-200",
       icon: UserPlus,
       color: "text-secondary",
     },
@@ -43,28 +45,28 @@ const Page = () => {
       description: "Visualizar e cadastrar funcionários e clientes",
       icon: Users,
       // action: () => navigate("/usuarios"),
-      color: "bg-primary hover:bg-primary-hover",
+      color: "bg-warning hover:bg-orange-500",
     },
     {
       title: "Gerenciar Espaços",
       description: "Visualizar e cadastrar espaços do coworking",
       icon: Building2,
       // action: () => navigate("/espacos"),
-      color: "bg-secondary hover:bg-secondary-hover",
+      color: "bg-secondary hover:bg-purple-600",
     },
     {
       title: "Novo Funcionário",
       description: "Cadastrar novo membro da equipe",
       icon: UserPlus,
       // action: () => navigate("/cadastro-funcionario"),
-      color: "bg-success hover:bg-success-foreground",
+      color: "bg-success hover:bg-green-600",
     },
     {
       title: "Novo Espaço",
       description: "Adicionar novo espaço ao coworking",
       icon: PlusCircle,
       // action: () => navigate("/cadastro-espaco"),
-      color: "bg-warning hover:bg-warning-foreground",
+      color: "bg-warning hover:bg-orange-500",
     },
   ];
 
@@ -81,16 +83,21 @@ const Page = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
-          <Card key={index} className="shadow-card hover:shadow-elegant transition-all duration-300">
+          <Card
+            key={index}
+            className="shadow-card hover:shadow-elegant transition-all duration-300
+              hover:scale-105 hover:-translate-y-2 hover:shadow-xl
+              cursor-pointer group transform active:scale-100"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 {stat.title}
               </CardTitle>
-              <stat.icon className={`h-4 w-4 ${stat.color}`} />
+              <stat.icon className={`h-4 w-4 ${stat.color} group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`} />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground">
+              <div className="text-2xl font-bold group-hover:text-3xl transition-all duration-300">{stat.value}</div>
+              <p className="text-xs text-muted-foreground group-hover:text-sm transition-all duration-300">
                 {stat.description}
               </p>
             </CardContent>
@@ -100,7 +107,10 @@ const Page = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {quickActions.map((action, index) => (
-          <Card key={index} className="shadow-card hover:shadow-elegant transition-all duration-300 cursor-pointer group">
+          <Card
+            key={index}
+            className="shadow-card hover:shadow-elegant transition-all duration-300 cursor-pointer group"
+          >
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
