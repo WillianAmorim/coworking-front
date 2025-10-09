@@ -12,13 +12,9 @@ import userService from "@/services/userService";
 import { Users } from "@/types/user";
 import { toast } from "sonner";
 
-const ClientForm = () => {
+const Page = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-
-
-
-    const [user, setUser] = useState<Users>()
 
     const initialFormData = {
         // Dados pessoais
@@ -63,46 +59,7 @@ const ClientForm = () => {
 
     };
 
-    const [formData, setFormData] = useState({
-
-        nome: user?.nome || "",
-        email: user?.email || "",
-        role: user?.role || "",
-        rg: user?.rg || "",
-        senha: user?.senha || "",
-        orgaoExpedidor: user?.orgaoExpedidor || "",
-        estadoCivil: user?.estadoCivil || "",
-        profissao: user?.profissao || "",
-        dataNascimento: user?.dataNascimento || "",
-        celular1: user?.celular1 || "",
-        celular2: user?.celular2 || "",
-
-        // Dados do cliente
-        client: {
-            plano: user?.client?.plano || "",
-            dataFundacao: user?.client?.dataFundacao || "",
-            documento: user?.client?.documento || "",
-            inscricaoEstadual: user?.client?.inscricaoEstadual || "",
-            inscricaoMunicipal: user?.client?.inscricaoMunicipal || "",
-            meioFaturamentoPadrao: user?.client?.meioFaturamentoPadrao || "",
-            nomeFantasia: user?.client?.nomeFantasia || "",
-            parceiroOrigemId: user?.client?.parceiroOrigemId || "",
-            pronuncia: user?.client?.pronuncia || "",
-            ramoAtividade: user?.client?.ramoAtividade || "",
-            razaoSocial: user?.client?.razaoSocial || "",
-            tipoPessoa: user?.client?.tipoPessoa || "",
-        },
-
-        addresses: {
-            cep: user?.addresses?.cep || "",
-            estado: user?.addresses?.estado || "",
-            cidade: user?.addresses?.cidade || "",
-            logradouro: user?.addresses?.logradouro || "",
-            numero: user?.addresses?.numero || "",
-            bairro: user?.addresses?.bairro || "",
-            complemento: user?.addresses?.complemento || ""
-        }
-    });
+    const [formData, setFormData] = useState(initialFormData);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -144,7 +101,7 @@ const ClientForm = () => {
                     className="flex items-center space-x-2"
                 >
                     <ArrowLeft className="w-4 h-4" />
-                    <span>Voltar</span>
+                    <span>Voltarrrrrrrrrrrrrrrrrrr</span>
                 </Button>
                 <div>
                     <h1 className="text-3xl font-bold">Cadastro de Cliente</h1>
@@ -661,4 +618,4 @@ const ClientForm = () => {
     );
 };
 
-export default ClientForm;
+export default Page;
