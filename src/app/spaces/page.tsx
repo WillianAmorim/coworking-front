@@ -84,7 +84,7 @@ const Spaces = () => {
             </Card>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredSpaces.map((space) => (
+                {filteredSpaces?.map((space) => (
                     <Card key={space.id} className="shadow-card hover:shadow-elegant transition-all duration-300 overflow-hidden">
                         <div className="relative">
                             <Carousel className="w-full">
@@ -181,7 +181,7 @@ const Spaces = () => {
                 ))}
             </div>
 
-            {filteredSpaces.length === 0 && (
+            {filteredSpaces?.length === 0 && (
                 <Card>
                     <CardContent className="text-center py-12">
                         <Building2 className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
