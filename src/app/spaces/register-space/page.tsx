@@ -8,12 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-// import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Save, Building2, Plus, X, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
 import spaceService from "@/services/spaceService";
-import { parse } from "path";
 
 const SpaceForm = () => {
 
@@ -36,12 +34,12 @@ const SpaceForm = () => {
     }
 
     const [formData, setFormData] = useState(initialFormData);
-    const handleInputChange = (field: string, value: string) => {
-        // setFormData(prev => ({
-        //     ...prev,
-        //     [field]: value
-        // }));
-    };
+    // const handleInputChange = (field: string, value: string) => {
+    //     // setFormData(prev => ({
+    //     //     ...prev,
+    //     //     [field]: value
+    //     // }));
+    // };
 
     const addComodidade = () => {
         if (newComodidade.trim() && !formData.comodidades.includes(newComodidade.trim())) {
@@ -100,6 +98,9 @@ const SpaceForm = () => {
             });
 
             console.log("Espaço cadastrado com sucesso!");
+            setFormData(initialFormData);
+            router.push("/spaces");
+
         } catch (error) {
             console.error("Erro ao cadastrar espaço:", error);
         } finally {
@@ -113,7 +114,7 @@ const SpaceForm = () => {
             <div className="flex items-center space-x-4">
                 <Button
                     variant="outline"
-                    // onClick={() => navigate("/espacos")}
+                    onClick={() => router.back()}
                     className="flex items-center space-x-2"
                 >
                     <ArrowLeft className="w-4 h-4" />

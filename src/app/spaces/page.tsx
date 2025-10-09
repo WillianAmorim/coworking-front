@@ -20,6 +20,7 @@ const Spaces = () => {
     const fetchSpaces = async () => {
         try {
             const fetchedSpaces = await spaceService.getSpaces();
+            console.log('fetchedSpaces');
             console.log(fetchedSpaces);
             setSpaces(fetchedSpaces);
         } catch (err) {
@@ -57,7 +58,7 @@ const Spaces = () => {
                 </div>
 
                 <Button
-                    // onClick={() => navigate("/cadastro-espaco")}
+                    onClick={() => route.push("/spaces/register-space")}
                     className="bg-primary hover:bg-primary-hover"
                 >
                     <Plus className="w-4 h-4 mr-2" />
