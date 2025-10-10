@@ -1,6 +1,5 @@
 import { Space } from '@/app/spaces/types/space';
 import api from '@/lib/api';
-import { Users } from '@/types/user';
 
 
 class SpaceService {

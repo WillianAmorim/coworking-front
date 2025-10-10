@@ -29,7 +29,11 @@ const Spaces = () => {
     }
 
     useEffect(() => {
+        console.log('spaces antes');
+
         fetchSpaces();
+        console.log('spaces depois');
+
     }, []);
 
     const filteredSpaces = spaces?.filter((space: any) =>
@@ -170,7 +174,7 @@ const Spaces = () => {
                                     <Button
                                         variant="outline"
                                         size="sm"
-                                    onClick={() => route.push(`/spaces/view-space/${space.id}`)}
+                                        onClick={() => route.push(`/spaces/view-space/${space.id}`)}
                                     >
                                         Ver Detalhes
                                     </Button>
