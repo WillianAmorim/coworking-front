@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+// <<<<<<< HEAD
 "use client"
 
 import { useState } from "react";
@@ -225,7 +225,7 @@ const Spaces = () => {
 };
 
 export default Spaces;
-=======
+// =======
 // "use client"
 
 // import { useState } from "react";
@@ -455,4 +455,4 @@ export default Spaces;
 // };
 
 // export default Spaces;
->>>>>>> estilizacao
+// >>>>>>> estilizacao
