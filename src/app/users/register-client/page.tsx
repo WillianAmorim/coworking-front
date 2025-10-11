@@ -9,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, Save, User, Building, Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import userService from "@/services/userService";
-import { Users } from "@/types/user";
 import { toast } from "sonner";
 
 const Page = () => {

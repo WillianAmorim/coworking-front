@@ -93,7 +93,7 @@ const Spaces = () => {
                         <div className="relative">
                             <Carousel className="w-full">
                                 <CarouselContent>
-                                    {space.imagens.map((imagem, idx) => (
+                                    {space?.imagens?.map((imagem, idx) => (
                                         <CarouselItem key={idx}>
                                             <div className="aspect-video relative">
                                                 <img
@@ -120,7 +120,7 @@ const Spaces = () => {
                             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                                 <div className="flex items-center space-x-1">
                                     <MapPin className="w-4 h-4" />
-                                    <span>{space.andar}º andar - Sala {space.sala}</span>
+                                    <span>{space?.andar}º andar - Sala {space?.sala}</span>
                                 </div>
                             </div>
                         </CardHeader>
@@ -132,7 +132,7 @@ const Spaces = () => {
                                         <Building2 className="w-4 h-4" />
                                         <span>Área</span>
                                     </div>
-                                    <p className="font-semibold">{space.area}m²</p>
+                                    <p className="font-semibold">{space?.area}m²</p>
                                 </div>
                                 <div className="text-center">
                                     <div className="flex items-center justify-center space-x-1 text-sm text-muted-foreground">
