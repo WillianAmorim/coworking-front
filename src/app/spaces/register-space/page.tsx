@@ -12,6 +12,7 @@ import { ArrowLeft, Save, Building2, Plus, X, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
 import spaceService from "@/services/spaceService";
+import axios from "axios";
 
 const SpaceForm = () => {
 
@@ -88,10 +89,16 @@ const SpaceForm = () => {
 
             // Imagens (múltiplos arquivos)
             formData.images.forEach((file) => {
-                formPayload.append("images", file);
+                formPayload.append("images", file)
             });
 
-            await spaceService.addSpace(formPayload);
+            // await spaceService.addSpace(formPayload);
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL_PROD}/spaces`, formPayload, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(formPayload, "FORM PAYLOAD");
 
             console.log("Espaço cadastrado com sucesso!");
             setFormData(initialFormData);
