@@ -37,8 +37,8 @@ const Spaces = () => {
     }, []);
 
     const filteredSpaces = spaces?.filter((space: any) =>
-        space.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        space.tipo.toLowerCase().includes(searchTerm.toLowerCase())
+        space?.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        space?.tipo.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const getTypeColor = (tipo: string) => {
@@ -89,16 +89,16 @@ const Spaces = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredSpaces?.map((space) => (
-                    <Card key={space.id} className="shadow-card hover:shadow-elegant transition-all duration-300 overflow-hidden">
+                    <Card key={space?.id} className="shadow-card hover:shadow-elegant transition-all duration-300 overflow-hidden">
                         <div className="relative">
                             <Carousel className="w-full">
                                 <CarouselContent>
-                                    {space?.imagens?.map((imagem, idx) => (
+                                    {space?.imagens.map((imagem, idx) => (
                                         <CarouselItem key={idx}>
                                             <div className="aspect-video relative">
                                                 <img
                                                     src={imagem.url}
-                                                    alt={`${space.nome} - ${idx + 1}`}
+                                                    alt={`${space?.nome} - ${idx + 1}`}
                                                     className="w-full h-full object-cover"
                                                 />
                                             </div>
@@ -109,14 +109,14 @@ const Spaces = () => {
                                 <CarouselNext className="right-2 h-8 w-8" />
                             </Carousel>
                             <div className="absolute top-3 left-3 z-10">
-                                <Badge className={getTypeColor(space.tipo)}>
-                                    {space.tipo}
+                                <Badge className={getTypeColor(space?.tipo)}>
+                                    {space?.tipo}
                                 </Badge>
                             </div>
                         </div>
 
                         <CardHeader>
-                            <CardTitle className="text-xl">{space.nome}</CardTitle>
+                            <CardTitle className="text-xl">{space?.nome}</CardTitle>
                             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                                 <div className="flex items-center space-x-1">
                                     <MapPin className="w-4 h-4" />
@@ -139,21 +139,21 @@ const Spaces = () => {
                                         <Users className="w-4 h-4" />
                                         <span>Capacidade</span>
                                     </div>
-                                    <p className="font-semibold">{space.capacidadePessoas} pessoas</p>
+                                    <p className="font-semibold">{space?.capacidadePessoas} pessoas</p>
                                 </div>
                             </div>
 
                             <div className="space-y-2">
                                 <h4 className="font-medium text-sm">Comodidades:</h4>
                                 <div className="flex flex-wrap gap-1">
-                                    {space.comodidades.slice(0, 3).map((comodidade, index) => (
+                                    {space?.comodidades.slice(0, 3).map((comodidade, index) => (
                                         <Badge key={index} variant="outline" className="text-xs">
                                             {comodidade}
                                         </Badge>
                                     ))}
-                                    {space.comodidades.length > 3 && (
+                                    {space?.comodidades.length > 3 && (
                                         <Badge variant="outline" className="text-xs">
-                                            +{space.comodidades.length - 3} mais
+                                            +{space?.comodidades.length - 3} mais
                                         </Badge>
                                     )}
                                 </div>
@@ -167,8 +167,8 @@ const Spaces = () => {
                                             <span>Preços</span>
                                         </div>
                                         <div className="text-sm">
-                                            <p><strong>Hora:</strong> R$ {space.precoHora.toFixed(2)}</p>
-                                            <p><strong>Dia:</strong> R$ {space.precoDia.toFixed(2)}</p>
+                                            <p><strong>Hora:</strong> R$ {space?.precoHora.toFixed(2)}</p>
+                                            <p><strong>Dia:</strong> R$ {space?.precoDia.toFixed(2)}</p>
                                         </div>
                                     </div>
                                     <Button
