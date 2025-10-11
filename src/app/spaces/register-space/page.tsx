@@ -93,7 +93,7 @@ const SpaceForm = () => {
             });
 
             // await spaceService.addSpace(formPayload);
-            await axios.post(`${process.env.NEXT_PUBLIC_API_URL_PROD}/spaces`, formPayload, {
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL_PROD}/spaces/`, formPayload, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
