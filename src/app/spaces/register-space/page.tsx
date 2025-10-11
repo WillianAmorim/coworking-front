@@ -91,11 +91,7 @@ const SpaceForm = () => {
                 formPayload.append("images", file);
             });
 
-            await api.post("/spaces", formPayload, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
+            await spaceService.addSpace(formPayload);
 
             console.log("Espaço cadastrado com sucesso!");
             setFormData(initialFormData);
