@@ -20,13 +20,22 @@ const Spaces = () => {
     const fetchSpaces = async () => {
         try {
             const fetchedSpaces = await spaceService.getSpaces();
-            console.log('fetchedSpaces');
-            console.log(fetchedSpaces);
-            setSpaces(fetchedSpaces);
+            console.log("fetchedSpaces:", fetchedSpaces);
+
+            if (Array.isArray(fetchedSpaces)) {
+                setSpaces(fetchedSpaces);
+            } else if (Array.isArray(fetchedSpaces)) {
+                setSpaces(fetchedSpaces);
+            } else {
+                console.error("Resposta inesperada do servidor:", fetchedSpaces);
+                setSpaces([]); // evita crash
+            }
         } catch (err) {
-            console.error('Erro ao buscar usuários:', err);
+            console.error("Erro ao buscar espaços:", err);
+            setSpaces([]); // fallback seguro
         }
-    }
+    };
+
 
     useEffect(() => {
         console.log('spaces antes');
